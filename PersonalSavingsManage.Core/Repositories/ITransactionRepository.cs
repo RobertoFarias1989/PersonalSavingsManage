@@ -4,8 +4,8 @@ namespace PersonalSavingsManage.Core.Repositories;
 
 public interface ITransactionRepository
 {
-    public Task<List<Transaction>> GetAllAsync();
-    public Task<Transaction> GetByIdAsync(string id);
-    public Task<Transaction> GetDetailsByIdAsync(string id);
-    public Task AddAsync(Transaction transaction);
+    Task<List<Transaction>> GetAllAsync();
+    Task<Transaction> GetByIdAsync(string id);
+    Task<Transaction> GetDetailsByIdAsync(string id);
+    Task AddAsync(Transaction transaction);
 }
