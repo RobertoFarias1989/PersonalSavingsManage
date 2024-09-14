@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.10.35027.167
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PersonalSavingsManage.Core", "PersonalSavingsManage.Core\PersonalSavingsManage.Core.csproj", "{AB3AC78E-E56B-4E24-BE76-7BD4681E5D9E}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{AB3AC78E-E56B-4E24-BE76-7BD4681E5D9E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AB3AC78E-E56B-4E24-BE76-7BD4681E5D9E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AB3AC78E-E56B-4E24-BE76-7BD4681E5D9E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AB3AC78E-E56B-4E24-BE76-7BD4681E5D9E}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {282A120A-9441-40E4-9284-3E1A5C7A783C}
+	EndGlobalSection
+EndGlobal
