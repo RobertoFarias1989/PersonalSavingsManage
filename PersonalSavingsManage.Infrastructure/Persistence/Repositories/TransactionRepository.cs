@@ -21,10 +21,6 @@ public class TransactionRepository : ITransactionRepository
         return await _collection.Find(t => t.Id == id).SingleOrDefaultAsync();
     }
 
-    public async Task<Transaction> GetDetailsByIdAsync(string id)
-    {
-        throw new NotImplementedException();
-    }
     public async Task AddAsync(Transaction transaction)
     {
         await _collection.InsertOneAsync(transaction);
