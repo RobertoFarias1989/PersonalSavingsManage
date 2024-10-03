@@ -7,7 +7,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="FinancialGoal\Commands\UpdateFinancialGoal\" />
     <Folder Include="FinancialGoal\ViewModels\" />
     <Folder Include="FinancialGoal\Validators\" />
     <Folder Include="FinancialGoal\Queries\" />

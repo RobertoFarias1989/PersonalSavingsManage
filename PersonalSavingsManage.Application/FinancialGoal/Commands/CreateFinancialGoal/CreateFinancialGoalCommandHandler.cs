@@ -18,9 +18,10 @@ public class CreateFinancialGoalCommandHandler : IRequestHandler<CreateFinancial
         var financialGoal = new Core.Entities.FinancialGoal(
             request.Title,
             request.TargetAmount,
-            request.Deadline,
-            request.IdealMonthlyContribution,
+            request.Deadline,           
             (FinancialGoalStatusEnum)Enum.Parse(typeof(FinancialGoalStatusEnum),request.Status));
+
+        financialGoal.CalculateIdealMonthlyContribution(request.Deadline, request.TargetAmount);
 
         await _repository.AddAsync(financialGoal);
 

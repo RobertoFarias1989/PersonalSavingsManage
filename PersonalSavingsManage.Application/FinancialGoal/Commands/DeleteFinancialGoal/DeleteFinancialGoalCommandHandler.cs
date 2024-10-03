@@ -24,7 +24,7 @@ public class DeleteFinancialGoalCommandHandler : IRequestHandler<DeleteFinancial
         }
         else
         {
-            throw new Exception("");
+            throw new Exception("The FinancialGoal was not found or already deleted.");
         }
 
         return Unit.Value;
