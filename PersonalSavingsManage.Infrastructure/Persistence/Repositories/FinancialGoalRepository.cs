@@ -26,4 +26,9 @@ public class FinancialGoalRepository : IFinancialGoalRepository
     {
         await _collection.InsertOneAsync(goal);
     }
+
+    public async Task UpdateAsync(FinancialGoal goal)
+    {
+        await _collection.ReplaceOneAsync(fg => fg.Id == goal.Id, goal);    
+    }
 }
