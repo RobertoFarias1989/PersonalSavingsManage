@@ -23,4 +23,14 @@ public class User : BaseEntity
     public string Role { get; private set; }
     public List<FinancialGoal>  Goals { get; private set; }
     public List<Transaction>  Transactions { get; private set; }
+
+    public void Update(Address address, Email email, Name name, Password password)
+    {
+        Address = address;
+        Email = email;
+        Name = name;
+        Password = password;
+
+        UpdatedAt = DateTime.Now;
+    }
 }

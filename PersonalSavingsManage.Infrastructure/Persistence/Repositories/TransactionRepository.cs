@@ -26,4 +26,8 @@ public class TransactionRepository : ITransactionRepository
         await _collection.InsertOneAsync(transaction);
     }
 
+    public async Task UpdateAsync(Transaction transaction)
+    {
+        await _collection.ReplaceOneAsync(t => t.Id == t.Id, transaction);
+    }
 }
