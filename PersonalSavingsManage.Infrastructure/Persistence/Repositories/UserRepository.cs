@@ -31,4 +31,9 @@ public class UserRepository : IUserRepository
     {
         await _collection.InsertOneAsync(user);
     }
+
+    public async Task UpdateAsync(User user)
+    {
+        await _collection.ReplaceOneAsync(u => u.Id == user.Id, user);
+    }
 }
