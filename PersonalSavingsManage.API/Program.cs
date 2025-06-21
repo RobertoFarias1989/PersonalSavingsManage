@@ -1,4 +1,5 @@
 using Microsoft.OpenApi.Models;
+using PersonalSavingsManage.API.ExtensionMethods;
 using PersonalSavingsManage.Application;
 using PersonalSavingsManage.Infrastructure;
 using System.Reflection;
@@ -40,6 +41,8 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+
+app.ConfigureExceptionHandler();
 
 app.UseHttpsRedirection();
 
