@@ -1,8 +1,9 @@
 ﻿using MediatR;
+using PersonalSavingsManage.Core.Models;
 
 namespace PersonalSavingsManage.Application.FinancialGoal.Commands.CreateFinancialGoal;
 
-public class CreateFinancialGoalCommand : IRequest<string>
+public class CreateFinancialGoalCommand : IRequest<ResultViewModel<string>>
 {
     public string Title { get;  set; } = string.Empty;
     public decimal TargetAmount { get;  set; }

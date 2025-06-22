@@ -48,14 +48,14 @@ public class FinancialGoalsController : ControllerBase
     {
         var query = new GetFinacialGoalByIdQuery(id);
 
-        var financialGoal = await _mediator.Send(query);
+        var result = await _mediator.Send(query);
 
-        if(financialGoal == null)
+        if(!result.IsSuccess)
         {
-            return NotFound();
+            return NotFound(result.Message);
         }
 
-        return Ok(financialGoal);
+        return Ok(result);
     }
 
     /// <summary>
@@ -67,9 +67,9 @@ public class FinancialGoalsController : ControllerBase
     [ProducesResponseType(typeof(CreateFinancialGoalCommand),StatusCodes.Status200OK)]
     public async Task<IActionResult> Post(CreateFinancialGoalCommand command)
     {
-        var id = await _mediator.Send(command);
+        var result = await _mediator.Send(command);
 
-        return CreatedAtAction(nameof(GetById), new { id = id }, command);
+        return CreatedAtAction(nameof(GetById), new { id = result.Data }, command);
     }
 
     /// <summary>
@@ -83,7 +83,12 @@ public class FinancialGoalsController : ControllerBase
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     public async Task<IActionResult> Put(string id, UpdateFinancialGoalCommand command)
     {
-        await _mediator.Send(command);
+        var result = await _mediator.Send(command);
+
+        if(!result.IsSuccess)
+        {
+            return NotFound(result.Message);
+        }
   
         return NoContent();
     }
@@ -100,7 +105,12 @@ public class FinancialGoalsController : ControllerBase
     {
         var command = new DeleteFinancialGoalCommand(id);
 
-        await _mediator.Send(command);
+        var result = await _mediator.Send(command);
+
+        if(!result.IsSuccess)
+        {
+            return NotFound(result.Message);
+        }
 
         return NoContent();
     }

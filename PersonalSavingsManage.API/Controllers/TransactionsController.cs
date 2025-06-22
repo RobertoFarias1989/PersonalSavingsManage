@@ -49,14 +49,14 @@ public class TransactionsController : ControllerBase
     {
         var query = new GetTransactionByIdQuery(id);
 
-        var transaction = await _mediator.Send(query);
+        var result = await _mediator.Send(query);
 
-        if (transaction == null)
+        if (!result.IsSuccess)
         {
-            return NotFound();
+            return NotFound(result.Message);
         }
 
-        return Ok(transaction);
+        return Ok(result);
     }
 
     /// <summary>
@@ -69,9 +69,9 @@ public class TransactionsController : ControllerBase
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     public async Task<IActionResult> Post(CreateTransactionCommand command)
     {
-        var id = await _mediator.Send(command);
+        var result = await _mediator.Send(command);
 
-        return CreatedAtAction(nameof(GetById), new { id = id}, command);
+        return CreatedAtAction(nameof(GetById), new { id = result.Data}, command);
     }
 
     /// <summary>
@@ -85,7 +85,12 @@ public class TransactionsController : ControllerBase
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     public async Task<IActionResult> Put(string id, UpdateTransactionCommand command)
     {
-        await _mediator.Send(command);
+        var result = await _mediator.Send(command);
+
+        if (!result.IsSuccess)
+        {
+            return NotFound(result.Message);
+        }
 
         return NoContent();
     }
@@ -102,7 +107,12 @@ public class TransactionsController : ControllerBase
     {
         var command = new DeleteTransactionCommand(id);
 
-        await _mediator.Send(command);
+        var result = await _mediator.Send(command);
+
+        if (!result.IsSuccess)
+        {
+            return NotFound(result.Message);
+        }
 
         return NoContent();
     }

@@ -1,9 +1,10 @@
 ﻿using MediatR;
+using PersonalSavingsManage.Core.Models;
 using PersonalSavingsManage.Core.Repositories;
 
 namespace PersonalSavingsManage.Application.FinancialGoal.Commands.DeleteFinancialGoal;
 
-public class DeleteFinancialGoalCommandHandler : IRequestHandler<DeleteFinancialGoalCommand, Unit>
+public class DeleteFinancialGoalCommandHandler : IRequestHandler<DeleteFinancialGoalCommand, ResultViewModel<Unit>>
 {
     private readonly IFinancialGoalRepository _repository;
 
@@ -12,7 +13,7 @@ public class DeleteFinancialGoalCommandHandler : IRequestHandler<DeleteFinancial
         _repository = repository;
     }
 
-    public async Task<Unit> Handle(DeleteFinancialGoalCommand request, CancellationToken cancellationToken)
+    public async Task<ResultViewModel<Unit>> Handle(DeleteFinancialGoalCommand request, CancellationToken cancellationToken)
     {
         var financialGoal = await _repository.GetByIdAsync(request.Id);
         
@@ -24,9 +25,9 @@ public class DeleteFinancialGoalCommandHandler : IRequestHandler<DeleteFinancial
         }
         else
         {
-            throw new Exception("The FinancialGoal was not found or already deleted.");
+            return ResultViewModel<Unit>.Error("The FinancialGoal was not found or already deleted.");            
         }
 
-        return Unit.Value;
+        return ResultViewModel<Unit>.Success(Unit.Value);
     }
 }

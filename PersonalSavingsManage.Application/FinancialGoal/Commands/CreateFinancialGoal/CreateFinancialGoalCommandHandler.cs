@@ -1,10 +1,11 @@
 ﻿using MediatR;
 using PersonalSavingsManage.Core.Enums;
+using PersonalSavingsManage.Core.Models;
 using PersonalSavingsManage.Core.Repositories;
 
 namespace PersonalSavingsManage.Application.FinancialGoal.Commands.CreateFinancialGoal;
 
-public class CreateFinancialGoalCommandHandler : IRequestHandler<CreateFinancialGoalCommand, string>
+public class CreateFinancialGoalCommandHandler : IRequestHandler<CreateFinancialGoalCommand, ResultViewModel<string>>
 {
     private readonly IFinancialGoalRepository _repository;
 
@@ -13,7 +14,7 @@ public class CreateFinancialGoalCommandHandler : IRequestHandler<CreateFinancial
         _repository = repository;
     }
 
-    public async Task<string> Handle(CreateFinancialGoalCommand request, CancellationToken cancellationToken)
+    public async Task<ResultViewModel<string>> Handle(CreateFinancialGoalCommand request, CancellationToken cancellationToken)
     {
         var financialGoal = new Core.Entities.FinancialGoal(
             request.Title,
@@ -25,6 +26,6 @@ public class CreateFinancialGoalCommandHandler : IRequestHandler<CreateFinancial
 
         await _repository.AddAsync(financialGoal);
 
-        return financialGoal.Id;
+        return ResultViewModel<string>.Success(financialGoal.Id);
     }
 }

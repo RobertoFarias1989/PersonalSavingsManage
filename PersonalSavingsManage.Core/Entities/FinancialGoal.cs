@@ -1,4 +1,5 @@
 ﻿using PersonalSavingsManage.Core.Enums;
+using PersonalSavingsManage.Core.Models;
 
 namespace PersonalSavingsManage.Core.Entities;
 
@@ -35,7 +36,7 @@ public class FinancialGoal : BaseEntity
         UpdatedAt = DateTime.Now;
     }
 
-    public override void SetAsDelete()
+    public override ResultViewModel SetAsDelete()
     {
         if(Status != FinancialGoalStatusEnum.Complete)
         {
@@ -45,8 +46,10 @@ public class FinancialGoal : BaseEntity
         }
         else
         {
-            throw new Exception("It's not allow delete a FinancialGoal that was already complete.");
+            return ResultViewModel.Error("It's not allow delete a FinancialGoal that was already complete.");         
         }
+
+        return ResultViewModel.Success();
     }
 
     //TODO: criar um método para calcular o campo IdealMonthlyContribution

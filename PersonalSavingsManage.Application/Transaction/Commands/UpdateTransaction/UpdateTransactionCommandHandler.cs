@@ -1,10 +1,11 @@
 ﻿using MediatR;
 using PersonalSavingsManage.Core.Enums;
+using PersonalSavingsManage.Core.Models;
 using PersonalSavingsManage.Core.Repositories;
 
 namespace PersonalSavingsManage.Application.Transaction.Commands.UpdateTransaction;
 
-public class UpdateTransactionCommandHandler : IRequestHandler<UpdateTransactionCommand, Unit>
+public class UpdateTransactionCommandHandler : IRequestHandler<UpdateTransactionCommand, ResultViewModel<Unit>>
 {
     private readonly ITransactionRepository _repository;
 
@@ -13,7 +14,7 @@ public class UpdateTransactionCommandHandler : IRequestHandler<UpdateTransaction
         _repository = repository;
     }
 
-    public async Task<Unit> Handle(UpdateTransactionCommand request, CancellationToken cancellationToken)
+    public async Task<ResultViewModel<Unit>> Handle(UpdateTransactionCommand request, CancellationToken cancellationToken)
     {
         var transaction = await _repository.GetByIdAsync(request.Id);
 
@@ -29,9 +30,9 @@ public class UpdateTransactionCommandHandler : IRequestHandler<UpdateTransaction
         }
         else
         {
-            throw new Exception("The Transaction was not found or already deleted.");
+            return ResultViewModel<Unit>.Error("The Transaction was not found or already deleted.");            
         }
 
-        return Unit.Value;
+        return ResultViewModel<Unit>.Success(Unit.Value);
     }
 }

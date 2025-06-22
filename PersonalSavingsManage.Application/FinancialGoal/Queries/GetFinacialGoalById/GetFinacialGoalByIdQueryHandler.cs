@@ -1,11 +1,12 @@
 ﻿using MediatR;
 using PersonalSavingsManage.Application.FinancialGoal.ViewModels;
 using PersonalSavingsManage.Application.Transaction.ViewModel;
+using PersonalSavingsManage.Core.Models;
 using PersonalSavingsManage.Core.Repositories;
 
 namespace PersonalSavingsManage.Application.FinancialGoal.Queries.GetFinacialGoalById;
 
-public class GetFinacialGoalByIdQueryHandler : IRequestHandler<GetFinacialGoalByIdQuery, FinancialGoalDetailsViewModel>
+public class GetFinacialGoalByIdQueryHandler : IRequestHandler<GetFinacialGoalByIdQuery, ResultViewModel<FinancialGoalDetailsViewModel>>
 {
     private readonly IFinancialGoalRepository _repository;
 
@@ -14,9 +15,12 @@ public class GetFinacialGoalByIdQueryHandler : IRequestHandler<GetFinacialGoalBy
         _repository = repository;
     }
 
-    public async Task<FinancialGoalDetailsViewModel> Handle(GetFinacialGoalByIdQuery request, CancellationToken cancellationToken)
+    public async Task<ResultViewModel<FinancialGoalDetailsViewModel>> Handle(GetFinacialGoalByIdQuery request, CancellationToken cancellationToken)
     {
         var financialGoal = await _repository.GetByIdAsync(request.Id);
+
+        if (financialGoal == null)
+            return ResultViewModel<FinancialGoalDetailsViewModel>.Error($"Financial goal for id:{request.Id} not found");
 
         var transactions = financialGoal.Transactions
             .Select(t => new TransactionViewModel(
@@ -37,6 +41,6 @@ public class GetFinacialGoalByIdQueryHandler : IRequestHandler<GetFinacialGoalBy
             financialGoal.UpdatedAt,
             transactions);
 
-        return financialGoalDetailsViewModel;
+        return ResultViewModel<FinancialGoalDetailsViewModel>.Success(financialGoalDetailsViewModel);
     }
 }

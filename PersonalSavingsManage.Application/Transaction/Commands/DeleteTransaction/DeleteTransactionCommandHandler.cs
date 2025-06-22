@@ -1,9 +1,10 @@
 ﻿using MediatR;
+using PersonalSavingsManage.Core.Models;
 using PersonalSavingsManage.Core.Repositories;
 
 namespace PersonalSavingsManage.Application.Transaction.Commands.DeleteTransaction;
 
-public class DeleteTransactionCommandHandler : IRequestHandler<DeleteTransactionCommand, Unit>
+public class DeleteTransactionCommandHandler : IRequestHandler<DeleteTransactionCommand, ResultViewModel<Unit>>
 {
     private readonly ITransactionRepository _repository;
 
@@ -12,7 +13,7 @@ public class DeleteTransactionCommandHandler : IRequestHandler<DeleteTransaction
         _repository = repository;
     }
 
-    public async Task<Unit> Handle(DeleteTransactionCommand request, CancellationToken cancellationToken)
+    public async Task<ResultViewModel<Unit>> Handle(DeleteTransactionCommand request, CancellationToken cancellationToken)
     {
         var transaction = await _repository.GetByIdAsync(request.Id);
 
@@ -26,9 +27,9 @@ public class DeleteTransactionCommandHandler : IRequestHandler<DeleteTransaction
         }
         else
         {
-            throw new Exception("The Transaction was not found or already deleted.");
+            return ResultViewModel<Unit>.Error("The Transaction was not found or already deleted.");            
         }
 
-        return Unit.Value;
+        return ResultViewModel<Unit>.Success(Unit.Value);
     }
 }
