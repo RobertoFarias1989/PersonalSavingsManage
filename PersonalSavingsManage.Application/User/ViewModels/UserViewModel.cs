@@ -1,4 +1,6 @@
-﻿namespace PersonalSavingsManage.Application.User.ViewModels;
+﻿using PersonalSavingsManage.Core.ValueObjects;
+
+namespace PersonalSavingsManage.Application.User.ViewModels;
 
 public class UserViewModel
 {
@@ -31,4 +33,24 @@ public class UserViewModel
     public string FullName { get; private set; }
     public string PasswordValue { get; private set; }
     public string Role { get; private set; }
+
+    public static UserViewModel FromEntity(Core.Entities.User entity)
+    {
+
+        //var address = new Address(entity.Address.Street, entity.Address.City, entity.Address.State, entity.Address.PostalCode, entity.Address.Country);
+
+        //var email = new Core.ValueObjects.Email(entity.Email.EmailAddress);
+
+        //var name = new Core.ValueObjects.Name(entity.Name.FullName);
+
+        //var password = new Core.ValueObjects.Password(entity.Password.PasswordValue);
+
+
+        return new UserViewModel(entity.Id, entity.Address.Street, entity.Address.City, entity.Address.State, entity.Address.PostalCode, entity.Address.Country, entity.Email.EmailAddress,
+            entity.Name.FullName, entity.Password.PasswordValue, entity.Role);
+
+        //Queria ter feito assim,mas parece não dar bom
+        //return new UserViewModel(entity.Id, address, email,
+        //   name, password, entity.Role);
+    }
 }

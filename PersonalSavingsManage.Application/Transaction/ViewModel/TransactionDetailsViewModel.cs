@@ -21,4 +21,9 @@ public class TransactionDetailsViewModel
     public bool IsDeleted { get; private set; }
     public DateTime CreatedAt { get; private set; }
     public DateTime? UpdatedAt { get; private set; }
+
+    public static TransactionDetailsViewModel FromEntity(Core.Entities.Transaction entity)
+    {
+        return new TransactionDetailsViewModel(entity.Id, entity.Amount, entity.Type.ToString(), entity.TransactionDate, entity.IsDeleted, entity.CreatedAt, entity.UpdatedAt);
+    }
 }

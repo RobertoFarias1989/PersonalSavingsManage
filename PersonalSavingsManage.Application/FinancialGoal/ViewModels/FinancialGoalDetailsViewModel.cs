@@ -37,4 +37,16 @@ public class FinancialGoalDetailsViewModel
     public DateTime CreatedAt { get; private set; }
     public DateTime? UpdatedAt { get; private set; }
     public List<TransactionViewModel>  Transactions { get; private set; }
+
+    public static FinancialGoalDetailsViewModel FromEntity(Core.Entities.FinancialGoal entity)
+    {
+        var transactions = entity.Transactions?
+        .Select(TransactionViewModel.FromEntity)
+        .ToList() ?? new List<TransactionViewModel>();
+
+
+        return new FinancialGoalDetailsViewModel(entity.Id, entity.Title, entity.TargetAmount, entity.Deadline, entity.IdealMonthlyContribution, entity.Status.ToString(),
+            entity.IsDeleted, entity.CreatedAt, entity.UpdatedAt, transactions);
+    }
+
 }

@@ -1,12 +1,11 @@
 ﻿using MediatR;
-using PersonalSavingsManage.Application.FinancialGoal.ViewModels;
-using PersonalSavingsManage.Application.Transaction.ViewModel;
 using PersonalSavingsManage.Application.User.ViewModels;
+using PersonalSavingsManage.Core.Models;
 using PersonalSavingsManage.Core.Repositories;
 
 namespace PersonalSavingsManage.Application.User.Queries.GetUserById;
 
-public class GetUserByIdQueryHandler : IRequestHandler<GetUserByIdQuery, UserDetailsViewModel>
+public class GetUserByIdQueryHandler : IRequestHandler<GetUserByIdQuery, ResultViewModel<UserDetailsViewModel>>
 {
     private readonly IUserRepository _repository;
 
@@ -15,44 +14,35 @@ public class GetUserByIdQueryHandler : IRequestHandler<GetUserByIdQuery, UserDet
         _repository = repository;
     }
 
-    public async Task<UserDetailsViewModel> Handle(GetUserByIdQuery request, CancellationToken cancellationToken)
+    public async Task<ResultViewModel<UserDetailsViewModel>> Handle(GetUserByIdQuery request, CancellationToken cancellationToken)
     {
         var user = await _repository.GetByIdAsync(request.Id);
 
-        var financialGoals = user.Goals
-            .Select(g => new FinancialGoalViewModel(
-                g.Id,
-                g.Title,
-                g.TargetAmount,
-                g.Deadline,
-                g.IdealMonthlyContribution,
-                g.Status.ToString())).ToList();
+        //var financialGoals = user.Goals
+        //    .Select(g => new FinancialGoalViewModel(
+        //        g.Id,
+        //        g.Title,
+        //        g.TargetAmount,
+        //        g.Deadline,
+        //        g.IdealMonthlyContribution,
+        //        g.Status.ToString())).ToList();
 
-        var transactions = user.Transactions
-            .Select(t => new TransactionViewModel(
-                t.Id,
-                t.Amount,
-                t.Type.ToString(),
-                t.TransactionDate)).ToList();
+        //var financialGoals = user.Goals
+        //        .Select(FinancialGoalViewModel.FromEntity).ToList();
 
-        var userDetailsViewModel = new UserDetailsViewModel(
-               user.Id,
-               user.Address.Street,
-               user.Address.City,
-               user.Address.State,
-               user.Address.PostalCode,
-               user.Address.Country,           
-               user.Email.EmailAddress,
-               user.Name.FullName,
-               user.Password.PasswordValue,
-               user.Role,
-               user.IsDeleted,
-               user.CreatedAt,
-               user.UpdatedAt,
-               transactions,
-               financialGoals);
+        //var transactions = user.Transactions
+        //    .Select(t => new TransactionViewModel(
+        //        t.Id,
+        //        t.Amount,
+        //        t.Type.ToString(),
+        //        t.TransactionDate)).ToList();
 
-        return userDetailsViewModel;
+        //var transactions = user.Transactions
+        //        .Select(TransactionViewModel.FromEntity).ToList();
+
+        var userDetailsViewModel = UserDetailsViewModel.FromEntity(user);
+
+        return ResultViewModel<UserDetailsViewModel>.Success(userDetailsViewModel);
 
     }
 }

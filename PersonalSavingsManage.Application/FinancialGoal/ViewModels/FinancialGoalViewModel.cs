@@ -19,4 +19,7 @@ public class FinancialGoalViewModel
     public DateTime Deadline { get; private set; }
     public decimal IdealMonthlyContribution { get; private set; }
     public string Status { get; private set; }
+
+    public static FinancialGoalViewModel FromEntity(Core.Entities.FinancialGoal entity)
+        => new FinancialGoalViewModel(entity.Id, entity.Title, entity.TargetAmount, entity.Deadline, entity.IdealMonthlyContribution, entity.Status.ToString());
 }

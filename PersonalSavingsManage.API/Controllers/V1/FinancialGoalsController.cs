@@ -1,4 +1,5 @@
-﻿using MediatR;
+﻿using Asp.Versioning;
+using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using PersonalSavingsManage.Application.FinancialGoal.Commands.CreateFinancialGoal;
 using PersonalSavingsManage.Application.FinancialGoal.Commands.DeleteFinancialGoal;
@@ -7,12 +8,13 @@ using PersonalSavingsManage.Application.FinancialGoal.Queries.GetAllFinacialGoal
 using PersonalSavingsManage.Application.FinancialGoal.Queries.GetFinacialGoalById;
 using PersonalSavingsManage.Application.FinancialGoal.ViewModels;
 
-namespace PersonalSavingsManage.API.Controllers;
+namespace PersonalSavingsManage.API.Controllers.V1;
 
-[Route("api/financial-goals")]
+[Route("api/v{version:apiVersion}/financial-goals")]
 [ApiController]
 [Produces("application/json")]
 [Consumes("application/json")]
+[ApiVersion(1)]
 public class FinancialGoalsController : ControllerBase
 {
     private readonly IMediator _mediator;
@@ -26,7 +28,7 @@ public class FinancialGoalsController : ControllerBase
     /// </summary>
     /// <returns>A list of FinancialGoalViewModel</returns>
     [HttpGet]
-    [ProducesResponseType(typeof(List<FinancialGoalViewModel>),StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(List<FinancialGoalViewModel>), StatusCodes.Status200OK)]
     public async Task<IActionResult> Get()
     {
         var getAllFinacialGoalsQuery = new GetAllFinacialGoalsQuery();
@@ -42,7 +44,7 @@ public class FinancialGoalsController : ControllerBase
     /// <param name="id"></param>
     /// <returns></returns>
     [HttpGet("{id}")]
-    [ProducesResponseType(typeof(FinancialGoalViewModel),StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(FinancialGoalViewModel), StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     public async Task<IActionResult> GetById(string id)
     {
@@ -50,10 +52,9 @@ public class FinancialGoalsController : ControllerBase
 
         var result = await _mediator.Send(query);
 
-        if(!result.IsSuccess)
-        {
+        if (!result.IsSuccess)
             return NotFound(result.Message);
-        }
+
 
         return Ok(result);
     }
@@ -64,7 +65,7 @@ public class FinancialGoalsController : ControllerBase
     /// <param name="command"></param>
     /// <returns></returns>
     [HttpPost]
-    [ProducesResponseType(typeof(CreateFinancialGoalCommand),StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(CreateFinancialGoalCommand), StatusCodes.Status200OK)]
     public async Task<IActionResult> Post(CreateFinancialGoalCommand command)
     {
         var result = await _mediator.Send(command);
@@ -79,17 +80,16 @@ public class FinancialGoalsController : ControllerBase
     /// <param name="command"></param>
     /// <returns></returns>
     [HttpPut("{id}")]
-    [ProducesResponseType(typeof(UpdateFinancialGoalCommand),StatusCodes.Status204NoContent)]
+    [ProducesResponseType(typeof(UpdateFinancialGoalCommand), StatusCodes.Status204NoContent)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     public async Task<IActionResult> Put(string id, UpdateFinancialGoalCommand command)
     {
         var result = await _mediator.Send(command);
 
-        if(!result.IsSuccess)
-        {
+        if (!result.IsSuccess)
             return NotFound(result.Message);
-        }
-  
+
+
         return NoContent();
     }
 
@@ -107,10 +107,9 @@ public class FinancialGoalsController : ControllerBase
 
         var result = await _mediator.Send(command);
 
-        if(!result.IsSuccess)
-        {
+        if (!result.IsSuccess)
             return NotFound(result.Message);
-        }
+
 
         return NoContent();
     }

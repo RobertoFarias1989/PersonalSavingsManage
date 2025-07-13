@@ -1,4 +1,5 @@
-﻿using MediatR;
+﻿using Asp.Versioning;
+using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using PersonalSavingsManage.Application.Transaction.Commands.CreateTransaction;
 using PersonalSavingsManage.Application.Transaction.Commands.DeleteTransaction;
@@ -7,12 +8,13 @@ using PersonalSavingsManage.Application.Transaction.Queries.GetAllTransactions;
 using PersonalSavingsManage.Application.Transaction.Queries.GetTransactionById;
 using PersonalSavingsManage.Application.Transaction.ViewModel;
 
-namespace PersonalSavingsManage.API.Controllers;
+namespace PersonalSavingsManage.API.Controllers.V1;
 
-[Route("api/transactions")]
+[Route("api/v{version:apiVersion}/transactions")]
 [ApiController]
 [Produces("application/json")]
 [Consumes("application/json")]
+[ApiVersion(1)]
 public class TransactionsController : ControllerBase
 {
     private readonly IMediator _mediator;
@@ -27,7 +29,7 @@ public class TransactionsController : ControllerBase
     /// </summary>
     /// <returns></returns>
     [HttpGet]
-    [ProducesResponseType(typeof(List<TransactionViewModel>),StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(List<TransactionViewModel>), StatusCodes.Status200OK)]
     public async Task<IActionResult> Get()
     {
         var query = new GetAllTransactionsQuery();
@@ -43,7 +45,7 @@ public class TransactionsController : ControllerBase
     /// <param name="id"></param>
     /// <returns></returns>
     [HttpGet("{id}")]
-    [ProducesResponseType(typeof(TransactionDetailsViewModel),StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(TransactionDetailsViewModel), StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     public async Task<IActionResult> GetById(string id)
     {
@@ -52,9 +54,8 @@ public class TransactionsController : ControllerBase
         var result = await _mediator.Send(query);
 
         if (!result.IsSuccess)
-        {
             return NotFound(result.Message);
-        }
+
 
         return Ok(result);
     }
@@ -65,13 +66,13 @@ public class TransactionsController : ControllerBase
     /// <param name="command"></param>
     /// <returns></returns>
     [HttpPost]
-    [ProducesResponseType(typeof(CreateTransactionCommand),StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(CreateTransactionCommand), StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     public async Task<IActionResult> Post(CreateTransactionCommand command)
     {
         var result = await _mediator.Send(command);
 
-        return CreatedAtAction(nameof(GetById), new { id = result.Data}, command);
+        return CreatedAtAction(nameof(GetById), new { id = result.Data }, command);
     }
 
     /// <summary>
@@ -81,16 +82,15 @@ public class TransactionsController : ControllerBase
     /// <param name="command"></param>
     /// <returns></returns>
     [HttpPut("{id}")]
-    [ProducesResponseType(typeof(UpdateTransactionCommand),StatusCodes.Status204NoContent)]
+    [ProducesResponseType(typeof(UpdateTransactionCommand), StatusCodes.Status204NoContent)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     public async Task<IActionResult> Put(string id, UpdateTransactionCommand command)
     {
         var result = await _mediator.Send(command);
 
         if (!result.IsSuccess)
-        {
             return NotFound(result.Message);
-        }
+
 
         return NoContent();
     }
@@ -110,9 +110,8 @@ public class TransactionsController : ControllerBase
         var result = await _mediator.Send(command);
 
         if (!result.IsSuccess)
-        {
             return NotFound(result.Message);
-        }
+
 
         return NoContent();
     }

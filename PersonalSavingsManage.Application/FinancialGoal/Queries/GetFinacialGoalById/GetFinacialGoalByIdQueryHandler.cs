@@ -22,24 +22,30 @@ public class GetFinacialGoalByIdQueryHandler : IRequestHandler<GetFinacialGoalBy
         if (financialGoal == null)
             return ResultViewModel<FinancialGoalDetailsViewModel>.Error($"Financial goal for id:{request.Id} not found");
 
-        var transactions = financialGoal.Transactions
-            .Select(t => new TransactionViewModel(
-                t.Id,
-                t.Amount,
-                t.Type.ToString(),
-                t.TransactionDate)).ToList();
+        //var transactions = financialGoal.Transactions
+        //    .Select(t => new TransactionViewModel(
+        //        t.Id,
+        //        t.Amount,
+        //        t.Type.ToString(),
+        //        t.TransactionDate)).ToList();
 
-        var financialGoalDetailsViewModel = new FinancialGoalDetailsViewModel(
-            financialGoal.Id,
-            financialGoal.Title,
-            financialGoal.TargetAmount,
-            financialGoal.Deadline,
-            financialGoal.IdealMonthlyContribution,
-            financialGoal.Status.ToString(),
-            financialGoal.IsDeleted,
-            financialGoal.CreatedAt,
-            financialGoal.UpdatedAt,
-            transactions);
+
+        //var transactions = financialGoal.Transactions
+        //    .Select(TransactionViewModel.FromEntity).ToList();
+
+        //var financialGoalDetailsViewModel = new FinancialGoalDetailsViewModel(
+        //    financialGoal.Id,
+        //    financialGoal.Title,
+        //    financialGoal.TargetAmount,
+        //    financialGoal.Deadline,
+        //    financialGoal.IdealMonthlyContribution,
+        //    financialGoal.Status.ToString(),
+        //    financialGoal.IsDeleted,
+        //    financialGoal.CreatedAt,
+        //    financialGoal.UpdatedAt,
+        //    transactions);
+
+        var financialGoalDetailsViewModel = FinancialGoalDetailsViewModel.FromEntity(financialGoal);
 
         return ResultViewModel<FinancialGoalDetailsViewModel>.Success(financialGoalDetailsViewModel);
     }

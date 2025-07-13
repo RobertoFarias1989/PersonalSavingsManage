@@ -18,14 +18,16 @@ public class GetTransactionByIdQueryHandler : IRequestHandler<GetTransactionById
     {
         var transaction = await _repository.GetByIdAsync(request.Id);
 
-        var transactionDetailsViewModel = new TransactionDetailsViewModel(
-            transaction.Id,
-            transaction.Amount,
-            transaction.Type.ToString(),
-            transaction.TransactionDate,
-            transaction.IsDeleted,
-            transaction.CreatedAt,
-            transaction.UpdatedAt);
+        //var transactionDetailsViewModel = new TransactionDetailsViewModel(
+        //    transaction.Id,
+        //    transaction.Amount,
+        //    transaction.Type.ToString(),
+        //    transaction.TransactionDate,
+        //    transaction.IsDeleted,
+        //    transaction.CreatedAt,
+        //    transaction.UpdatedAt);
+
+        var transactionDetailsViewModel = TransactionDetailsViewModel.FromEntity(transaction);
 
         return ResultViewModel<TransactionDetailsViewModel>.Success(transactionDetailsViewModel);
     }
