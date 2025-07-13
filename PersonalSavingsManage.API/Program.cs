@@ -18,6 +18,10 @@ builder.Services.AddApiVersioning(o =>
     o.ReportApiVersions = true;
     o.AssumeDefaultVersionWhenUnspecified = true;
     o.ApiVersionReader = new UrlSegmentApiVersionReader(); // api/v1/transactions
+}).AddApiExplorer(options =>
+{
+    options.GroupNameFormat = "'v'V";
+    options.SubstituteApiVersionInUrl = true;
 });
 
 builder.Services.AddControllers();
