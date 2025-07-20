@@ -12,6 +12,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddInfrastructure();
 builder.Services.AddApplication();
 
+//versionamento
 builder.Services.AddApiVersioning(o =>
 {
     o.DefaultApiVersion = new ApiVersion(1);

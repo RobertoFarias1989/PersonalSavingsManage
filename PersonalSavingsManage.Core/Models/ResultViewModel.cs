@@ -12,10 +12,10 @@ public class ResultViewModel
     public string Message { get; private set; }
 
     public static ResultViewModel Success()
-        => new();
+        => new ResultViewModel();
 
     public static ResultViewModel Error(string message)
-        => new(false, message);
+        => new ResultViewModel(false, message);
 }
 
 public class ResultViewModel<T> : ResultViewModel
@@ -29,8 +29,8 @@ public class ResultViewModel<T> : ResultViewModel
     public T? Data { get; private set; }
 
     public static ResultViewModel<T> Success(T data)
-        => new(data);
+        => new ResultViewModel<T>(data);
 
     public static ResultViewModel<T> Error(string message)
-        => new(default, false, message);
+        => new ResultViewModel<T>(default, false, message);
 }
