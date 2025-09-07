@@ -3,6 +3,7 @@ using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using PersonalSavingsManage.Application.Login.Commands;
+using PersonalSavingsManage.Application.PasswordRecovery.Commands;
 using PersonalSavingsManage.Application.User.Commands.CreateUser;
 using PersonalSavingsManage.Application.User.Commands.DeleteUser;
 using PersonalSavingsManage.Application.User.Queries.GetAllUsers;
@@ -89,6 +90,54 @@ public class UsersController : ControllerBase
             return NotFound(result.Message);
 
         return Ok(result);
+    }
+
+    /// <summary>
+    /// Password Recovery
+    /// </summary>
+    /// <param name="command"></param>
+    /// <returns></returns>
+    [HttpPost("password-recovery/request")]
+    public async Task<IActionResult> RequestPasswordRecovery(PasswordRecoveryRequestCommand command)
+    {
+        var result = await _mediator.Send(command);
+
+        if(!result.IsSuccess)
+            return BadRequest(result.Message);
+
+        return NoContent();
+    }
+
+    /// <summary>
+    /// Validate recovery code
+    /// </summary>
+    /// <param name="command"></param>
+    /// <returns></returns>
+    [HttpPost("password-recovery/validate")]
+    public IActionResult ValidateRecoveryCode(ValidateRecoveryCodeCommand command)
+    {
+        var result = _mediator.Send(command);
+
+        if (!result.Result.IsSuccess)
+            return BadRequest(result.Result.IsSuccess);
+
+        return NoContent();
+    }
+
+    /// <summary>
+    /// Change password
+    /// </summary>
+    /// <param name="command"></param>
+    /// <returns></returns>
+    [HttpPost("password-recovery/change")]
+    public async Task<IActionResult> ChangePassword(ChangePasswordCommand command )
+    {
+        var result = await _mediator.Send(command);
+
+        if (!result.IsSuccess)
+            return BadRequest(result.IsSuccess);
+
+        return NoContent();
     }
 
     /// <summary>

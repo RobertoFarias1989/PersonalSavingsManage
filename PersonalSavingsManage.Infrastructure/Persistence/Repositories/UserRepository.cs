@@ -27,6 +27,14 @@ public class UserRepository : IUserRepository
             .Find(u => u.Email.EmailAddress == email && u.Password.PasswordValue == passwordHash)
             .SingleOrDefaultAsync();
     }
+
+    public async Task<User> GetUserByEmailAsync(string email)
+    {
+        return await _collection
+          .Find(u => u.Email.EmailAddress == email)
+          .SingleOrDefaultAsync();
+    }
+
     public async Task Addasync(User user)
     {
         await _collection.InsertOneAsync(user);
@@ -36,4 +44,5 @@ public class UserRepository : IUserRepository
     {
         await _collection.ReplaceOneAsync(u => u.Id == user.Id, user);
     }
+    
 }

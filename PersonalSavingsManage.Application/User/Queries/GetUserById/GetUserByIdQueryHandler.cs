@@ -18,28 +18,6 @@ public class GetUserByIdQueryHandler : IRequestHandler<GetUserByIdQuery, ResultV
     {
         var user = await _repository.GetByIdAsync(request.Id);
 
-        //var financialGoals = user.Goals
-        //    .Select(g => new FinancialGoalViewModel(
-        //        g.Id,
-        //        g.Title,
-        //        g.TargetAmount,
-        //        g.Deadline,
-        //        g.IdealMonthlyContribution,
-        //        g.Status.ToString())).ToList();
-
-        //var financialGoals = user.Goals
-        //        .Select(FinancialGoalViewModel.FromEntity).ToList();
-
-        //var transactions = user.Transactions
-        //    .Select(t => new TransactionViewModel(
-        //        t.Id,
-        //        t.Amount,
-        //        t.Type.ToString(),
-        //        t.TransactionDate)).ToList();
-
-        //var transactions = user.Transactions
-        //        .Select(TransactionViewModel.FromEntity).ToList();
-
         var userDetailsViewModel = UserDetailsViewModel.FromEntity(user);
 
         return ResultViewModel<UserDetailsViewModel>.Success(userDetailsViewModel);

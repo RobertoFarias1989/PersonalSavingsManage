@@ -11,7 +11,8 @@ public static class ApplicationDependencyInjection
     public static IServiceCollection AddApplication(this IServiceCollection services)
     {
         services.AddMediator()
-            .AddValidator();
+            .AddValidator()
+            .AddCache();
 
         return services;
     }
@@ -26,6 +27,13 @@ public static class ApplicationDependencyInjection
     private static IServiceCollection AddValidator(this IServiceCollection services)
     {
         services.AddValidatorsFromAssembly(Assembly.GetExecutingAssembly());
+
+        return services;
+    }
+
+    private static IServiceCollection AddCache(this IServiceCollection services)
+    {
+        services.AddMemoryCache();
 
         return services;
     }

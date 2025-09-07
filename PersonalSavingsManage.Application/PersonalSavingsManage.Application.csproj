@@ -16,4 +16,9 @@
     <ProjectReference Include="..\PersonalSavingsManage.Infrastructure\PersonalSavingsManage.Infrastructure.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="PasswordRecovery\ViewModels\" />
+    <Folder Include="PasswordRecovery\Validators\" />
+  </ItemGroup>
+
 </Project>

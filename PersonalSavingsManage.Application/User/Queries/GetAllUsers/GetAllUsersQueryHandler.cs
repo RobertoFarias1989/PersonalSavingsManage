@@ -18,20 +18,6 @@ public class GetAllUsersQueryHandler : IRequestHandler<GetAllUsersQuery, ResultV
     {
         var users = await _repository.GetAllAsync();
 
-        //var usersViewModel = users
-        //    .Select(u => new UserViewModel(
-        //        u.Id,
-        //        u.Address.Street,
-        //        u.Address.City,
-        //        u.Address.State,
-        //        u.Address.PostalCode,
-        //        u.Address.Country,       
-        //        u.Email.EmailAddress,
-        //        u.Name.FullName,
-        //        u.Password.PasswordValue,
-        //        u.Role))
-        //    .ToList();
-
         var usersViewModel = users
             .Select(UserViewModel.FromEntity)
             .ToList();
