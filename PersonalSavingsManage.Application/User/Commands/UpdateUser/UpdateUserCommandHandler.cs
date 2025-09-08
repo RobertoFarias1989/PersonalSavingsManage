@@ -1,10 +1,11 @@
 ﻿using MediatR;
+using PersonalSavingsManage.Core.Models;
 using PersonalSavingsManage.Core.Repositories;
 using PersonalSavingsManage.Core.ValueObjects;
 
 namespace PersonalSavingsManage.Application.User.Commands.UpdateUser;
 
-public class UpdateUserCommandHandler : IRequestHandler<UpdateUserCommand, Unit>
+public class UpdateUserCommandHandler : IRequestHandler<UpdateUserCommand, ResultViewModel<Unit>>
 {
     private readonly IUserRepository _repository;
 
@@ -13,7 +14,7 @@ public class UpdateUserCommandHandler : IRequestHandler<UpdateUserCommand, Unit>
         _repository = repository;
     }
 
-    public async Task<Unit> Handle(UpdateUserCommand request, CancellationToken cancellationToken)
+    public async Task<ResultViewModel<Unit>> Handle(UpdateUserCommand request, CancellationToken cancellationToken)
     {
         var user = await _repository.GetByIdAsync(request.Id);
 
@@ -29,9 +30,9 @@ public class UpdateUserCommandHandler : IRequestHandler<UpdateUserCommand, Unit>
         }
         else
         {
-            throw new Exception("The User was not found or already deleted.");
+            return ResultViewModel<Unit>.Error("The User was not found or already deleted.");            
         }
 
-        return Unit.Value;
+        return ResultViewModel<Unit>.Success(Unit.Value);
     }
 }

@@ -1,19 +1,29 @@
-﻿using Microsoft.Extensions.Configuration;
+﻿using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.IdentityModel.Tokens;
 using MongoDB.Bson;
 using MongoDB.Driver;
 using PersonalSavingsManage.Core.Repositories;
+using PersonalSavingsManage.Core.Services;
+using PersonalSavingsManage.Infrastructure.Auth;
+using PersonalSavingsManage.Infrastructure.Notifications;
 using PersonalSavingsManage.Infrastructure.Persistence;
 using PersonalSavingsManage.Infrastructure.Persistence.Repositories;
+using SendGrid.Extensions.DependencyInjection;
+using System.Text;
 
 namespace PersonalSavingsManage.Infrastructure;
 
 public static class InfraDependencyInjection
 {
-    public static IServiceCollection AddInfrastructure( this IServiceCollection services)
+    public static IServiceCollection AddInfrastructure( this IServiceCollection services, IConfiguration configuration)
     {
         services.AddMongo()
-            .AddRepositories();
+            .AddRepositories()
+            .AddEmailService(configuration)
+            .AddAuthService(configuration);
+
         return services;
     }
     public static IServiceCollection AddMongo(this IServiceCollection services)
@@ -53,6 +63,41 @@ public static class InfraDependencyInjection
         services.AddScoped<IFinancialGoalRepository, FinancialGoalRepository>();
         services.AddScoped<ITransactionRepository, TransactionRepository>();
         services.AddScoped<IUserRepository, UserRepository>();
+
+        return services;
+    }
+
+    private static IServiceCollection AddEmailService(this IServiceCollection services, IConfiguration configuration)
+    {
+        services.AddSendGrid(o =>
+        {
+            o.ApiKey = configuration.GetValue<string>("SendGrid:ApiKey");
+        });
+
+        services.AddScoped<IEmailService, EmailService>();
+
+        return services;
+    }
+
+    private static IServiceCollection AddAuthService(this IServiceCollection services, IConfiguration configuration)
+    {
+        services.AddScoped<IAuthService, AuthService>();
+
+        services
+            .AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+            .AddJwtBearer(o =>
+            {
+                o.TokenValidationParameters = new TokenValidationParameters
+                {
+                    ValidateIssuer = true,
+                    ValidateAudience = true,
+                    ValidateLifetime = true,
+                    ValidateIssuerSigningKey = true,
+                    ValidIssuer = configuration["Jwt:Issuer"],
+                    ValidAudience = configuration["Jwt:Audience"],
+                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(configuration["Jwt:Key"]!))
+                };
+            });
 
         return services;
     }

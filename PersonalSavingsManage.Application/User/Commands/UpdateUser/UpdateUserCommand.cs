@@ -1,8 +1,9 @@
 ﻿using MediatR;
+using PersonalSavingsManage.Core.Models;
 
 namespace PersonalSavingsManage.Application.User.Commands.UpdateUser;
 
-public class UpdateUserCommand : IRequest<Unit>
+public class UpdateUserCommand : IRequest<ResultViewModel<Unit>>
 {
 
     public string Id { get; set; }

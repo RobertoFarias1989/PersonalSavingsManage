@@ -11,8 +11,8 @@ public static class ApplicationDependencyInjection
     public static IServiceCollection AddApplication(this IServiceCollection services)
     {
         services.AddMediator()
-            .AddValidator()
-            .AddCache();
+                .AddValidator()
+                .AddCache();
 
         return services;
     }
