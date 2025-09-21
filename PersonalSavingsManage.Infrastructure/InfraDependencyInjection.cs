@@ -7,10 +7,9 @@ using MongoDB.Driver;
 using PersonalSavingsManage.Core.Repositories;
 using PersonalSavingsManage.Core.Services;
 using PersonalSavingsManage.Infrastructure.Auth;
-using PersonalSavingsManage.Infrastructure.Notifications;
 using PersonalSavingsManage.Infrastructure.Persistence;
 using PersonalSavingsManage.Infrastructure.Persistence.Repositories;
-using SendGrid.Extensions.DependencyInjection;
+using Resend;
 using System.Text;
 
 namespace PersonalSavingsManage.Infrastructure;
@@ -69,12 +68,21 @@ public static class InfraDependencyInjection
 
     private static IServiceCollection AddEmailService(this IServiceCollection services, IConfiguration configuration)
     {
-        services.AddSendGrid(o =>
+        services.AddOptions();
+        services.AddHttpClient<ResendClient>();
+        services.Configure<ResendClientOptions>(o =>
         {
-            o.ApiKey = configuration.GetValue<string>("SendGrid:ApiKey");
+            o.ApiToken = configuration.GetValue<string>("Resend:ApiKey")!;
         });
 
-        services.AddScoped<IEmailService, EmailService>();
+        services.AddScoped<IResend, ResendClient>();
+
+        //services.AddSendGrid(o =>
+        //{
+        //    o.ApiKey = configuration.GetValue<string>("SendGrid:ApiKey");
+        //});
+
+        //services.AddScoped<IEmailService, EmailService>();
 
         return services;
     }

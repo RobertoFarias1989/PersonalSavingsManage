@@ -1,34 +1,32 @@
 ﻿
 using Microsoft.Extensions.Configuration;
-using SendGrid;
-using SendGrid.Helpers.Mail;
+using Resend;
 
 namespace PersonalSavingsManage.Infrastructure.Notifications;
 
 public class EmailService : IEmailService
 {
-    private readonly ISendGridClient _sendGridClient;
+    private readonly IResend _resend;
     private readonly string _fromEmail;
     private readonly string _fromName;
 
-    public EmailService(ISendGridClient sendGridClient, IConfiguration configuration)
+    public EmailService(IResend resend, IConfiguration configuration)
     {
-        _sendGridClient = sendGridClient;
-        _fromEmail = configuration.GetValue<string>("SendGrid:FromEmail") ?? "";
-        _fromName = configuration.GetValue<string>("SendGrid:FromName") ?? "";
+        _resend = resend;
+        _fromEmail = configuration.GetValue<string>("Resend:FromEmail") ?? "";
     }
 
     public async Task SendAsync(string email, string subject, string message)
     {
-        var sendGridMessage = new SendGridMessage
+
+        var resendMessage = new EmailMessage
         {
-            From = new EmailAddress(_fromEmail, _fromName),
+            From = _fromEmail,
             Subject = subject,
+            HtmlBody = $"<div><strong>{message}</div>",
+            To = email,
         };
 
-        sendGridMessage.AddContent(MimeType.Text, message);
-        sendGridMessage.AddTo(new EmailAddress(email));
-
-        var response = await _sendGridClient.SendEmailAsync(sendGridMessage);
+        await _resend.EmailSendAsync(resendMessage);
     }
 }
