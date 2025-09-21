@@ -77,13 +77,6 @@ public static class InfraDependencyInjection
 
         services.AddScoped<IResend, ResendClient>();
 
-        //services.AddSendGrid(o =>
-        //{
-        //    o.ApiKey = configuration.GetValue<string>("SendGrid:ApiKey");
-        //});
-
-        //services.AddScoped<IEmailService, EmailService>();
-
         return services;
     }
 
