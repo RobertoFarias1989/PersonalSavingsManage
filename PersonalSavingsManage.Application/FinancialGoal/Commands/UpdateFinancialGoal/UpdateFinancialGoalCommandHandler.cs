@@ -19,6 +19,22 @@ public class UpdateFinancialGoalCommandHandler : IRequestHandler<UpdateFinancial
 
         if (financialGoal != null && financialGoal.IsDeleted != true)
         {
+
+            if(request.ImageGoal != null)
+            {
+                var olderImagePath = financialGoal.ImageGoal;
+                var imagePath = Path.Combine("ImageGoals", request.ImageGoal!.FileName);
+
+                if (string.IsNullOrEmpty(olderImagePath) && File.Exists(olderImagePath))
+                {
+                    File.Delete(olderImagePath);
+                }
+
+                using Stream fileStream = new FileStream(imagePath, FileMode.Create);
+                request.ImageGoal.CopyTo(fileStream);
+                financialGoal.UpdateImageGoal(imagePath);
+            }
+
             financialGoal.Update(request.Title, request.TargetAmount, request.Deadline);
 
             financialGoal.CalculateIdealMonthlyContribution(request.Deadline, request.TargetAmount);

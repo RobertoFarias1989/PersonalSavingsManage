@@ -1,5 +1,6 @@
 ﻿using PersonalSavingsManage.Core.Enums;
 using PersonalSavingsManage.Core.Models;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace PersonalSavingsManage.Core.Entities;
 
@@ -7,11 +8,13 @@ public class FinancialGoal : BaseEntity
 {
     public FinancialGoal(string title,
         decimal targetAmount,
+        string imageGoal,
         DateTime deadline,
         FinancialGoalStatusEnum status) : base()
     {
         Title = title;
         TargetAmount = targetAmount;
+        ImageGoal = imageGoal;
         Deadline = deadline;        
         Status = status;
 
@@ -20,6 +23,7 @@ public class FinancialGoal : BaseEntity
 
     public string Title { get; private set; }
     public decimal TargetAmount { get; private set; }
+    public string ImageGoal { get; set; }
     public DateTime Deadline { get; private set; }
     public decimal IdealMonthlyContribution { get; private set; }
     public FinancialGoalStatusEnum Status { get; private set; }
@@ -62,5 +66,10 @@ public class FinancialGoal : BaseEntity
         var contribution = targetAmount / monthAmount;
 
         IdealMonthlyContribution = contribution;
+    }
+
+    public void UpdateImageGoal(string path)
+    {
+        ImageGoal = path;
     }
 }

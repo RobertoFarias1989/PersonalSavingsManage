@@ -3,11 +3,12 @@
 public class FinancialGoalViewModel
 {
     public FinancialGoalViewModel(string id,
-        string title, decimal targetAmount, DateTime deadline, decimal idealMonthlyContribution, string status)
+        string title, decimal targetAmount, string imageGoal, DateTime deadline, decimal idealMonthlyContribution, string status)
     {
         Id = id;
         Title = title;
         TargetAmount = targetAmount;
+        ImageGoal = imageGoal;
         Deadline = deadline;
         IdealMonthlyContribution = idealMonthlyContribution;
         Status = status;
@@ -16,10 +17,12 @@ public class FinancialGoalViewModel
     public string Id { get; private set; }
     public string Title { get; private set; }
     public decimal TargetAmount { get; private set; }
+    public string ImageGoal { get; private set; }
     public DateTime Deadline { get; private set; }
     public decimal IdealMonthlyContribution { get; private set; }
     public string Status { get; private set; }
 
     public static FinancialGoalViewModel FromEntity(Core.Entities.FinancialGoal entity)
-        => new FinancialGoalViewModel(entity.Id, entity.Title, entity.TargetAmount, entity.Deadline, entity.IdealMonthlyContribution, entity.Status.ToString());
+        => new FinancialGoalViewModel(entity.Id, entity.Title, entity.TargetAmount,
+            entity.ImageGoal, entity.Deadline, entity.IdealMonthlyContribution, entity.Status.ToString());
 }

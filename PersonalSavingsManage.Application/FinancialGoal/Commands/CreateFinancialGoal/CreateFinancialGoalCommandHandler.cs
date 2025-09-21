@@ -16,9 +16,14 @@ public class CreateFinancialGoalCommandHandler : IRequestHandler<CreateFinancial
 
     public async Task<ResultViewModel<string>> Handle(CreateFinancialGoalCommand request, CancellationToken cancellationToken)
     {
+        var imagePath = Path.Combine("ImageGoals", request.ImageGoal!.FileName);
+
+        using Stream fileStream = new FileStream(imagePath, FileMode.Create);
+
         var financialGoal = new Core.Entities.FinancialGoal(
             request.Title,
             request.TargetAmount,
+            imagePath,
             request.Deadline,           
             (FinancialGoalStatusEnum)Enum.Parse(typeof(FinancialGoalStatusEnum),request.Status));
 
