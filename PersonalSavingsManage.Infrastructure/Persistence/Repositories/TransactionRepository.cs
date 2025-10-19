@@ -16,7 +16,7 @@ public class TransactionRepository : ITransactionRepository
         return await _collection.Find(t => true).ToListAsync();
     }
 
-    public async Task<Transaction> GetByIdAsync(string id)
+    public async Task<Transaction> GetByIdAsync(Guid id)
     {
         return await _collection.Find(t => t.Id == id).SingleOrDefaultAsync();
     }

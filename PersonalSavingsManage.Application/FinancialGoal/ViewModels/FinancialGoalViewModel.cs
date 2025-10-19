@@ -2,7 +2,7 @@
 
 public class FinancialGoalViewModel
 {
-    public FinancialGoalViewModel(string id,
+    public FinancialGoalViewModel(Guid id,
         string title, decimal targetAmount, string imageGoal, DateTime deadline, decimal idealMonthlyContribution, string status)
     {
         Id = id;
@@ -14,7 +14,7 @@ public class FinancialGoalViewModel
         Status = status;
     }
 
-    public string Id { get; private set; }
+    public Guid Id { get; private set; }
     public string Title { get; private set; }
     public decimal TargetAmount { get; private set; }
     public string ImageGoal { get; private set; }

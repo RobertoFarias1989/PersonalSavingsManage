@@ -4,7 +4,7 @@ namespace PersonalSavingsManage.Application.FinancialGoal.ViewModels;
 
 public class FinancialGoalDetailsViewModel
 {
-    public FinancialGoalDetailsViewModel(string id,
+    public FinancialGoalDetailsViewModel(Guid id,
         string title,
         decimal targetAmount,
         string imageGoal,
@@ -29,7 +29,7 @@ public class FinancialGoalDetailsViewModel
         Transactions = transactions;
     }
 
-    public string Id { get; private set; }
+    public Guid Id { get; private set; }
     public string Title { get; private set; }
     public decimal TargetAmount { get; private set; }
     public string ImageGoal {  get; private set; }

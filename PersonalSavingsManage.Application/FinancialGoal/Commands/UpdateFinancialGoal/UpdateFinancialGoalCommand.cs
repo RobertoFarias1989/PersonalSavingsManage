@@ -7,7 +7,7 @@ namespace PersonalSavingsManage.Application.FinancialGoal.Commands.UpdateFinanci
 public class UpdateFinancialGoalCommand : IRequest<ResultViewModel<Unit>>
 {
 
-    public string Id { get;  set; } = string.Empty;
+    public Guid Id { get;  set; }
     public string Title { get; set; } = string.Empty;
     public decimal TargetAmount { get; set; }
     public IFormFile? ImageGoal { get; set; }

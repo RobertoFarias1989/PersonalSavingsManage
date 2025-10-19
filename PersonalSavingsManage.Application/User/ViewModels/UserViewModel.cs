@@ -4,7 +4,7 @@ namespace PersonalSavingsManage.Application.User.ViewModels;
 
 public class UserViewModel
 {
-    public UserViewModel(string id,
+    public UserViewModel(Guid id,
         string street,
         string city,
         string state,
@@ -23,7 +23,7 @@ public class UserViewModel
         Role = role;
     }
 
-    public string Id { get; private set; }
+    public Guid Id { get; private set; }
     public string Street { get; private set; }
     public string City { get; private set; }
     public string State { get; private set; }

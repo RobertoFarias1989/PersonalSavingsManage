@@ -17,7 +17,7 @@ public class FinancialGoalRepository : IFinancialGoalRepository
        return await _collection.Find(fg => true).ToListAsync();
     }
 
-    public async Task<FinancialGoal> GetByIdAsync(string id)
+    public async Task<FinancialGoal> GetByIdAsync(Guid id)
     {
         return await _collection.Find(fg => fg.Id == id).SingleOrDefaultAsync();
     }

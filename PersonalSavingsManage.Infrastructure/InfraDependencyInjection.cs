@@ -7,6 +7,7 @@ using MongoDB.Driver;
 using PersonalSavingsManage.Core.Repositories;
 using PersonalSavingsManage.Core.Services;
 using PersonalSavingsManage.Infrastructure.Auth;
+using PersonalSavingsManage.Infrastructure.Notifications;
 using PersonalSavingsManage.Infrastructure.Persistence;
 using PersonalSavingsManage.Infrastructure.Persistence.Repositories;
 using Resend;
@@ -76,6 +77,8 @@ public static class InfraDependencyInjection
         });
 
         services.AddScoped<IResend, ResendClient>();
+
+        services.AddScoped<IEmailService, EmailService>();
 
         return services;
     }

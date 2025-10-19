@@ -5,7 +5,7 @@ namespace PersonalSavingsManage.Application.User.ViewModels;
 
 public class UserDetailsViewModel
 {
-    public UserDetailsViewModel(string id,
+    public UserDetailsViewModel(Guid id,
         string street,
         string city,
         string state,
@@ -38,7 +38,7 @@ public class UserDetailsViewModel
         FinancialGoals = financialGoals;
     }
 
-    public string Id { get; private set; }
+    public Guid Id { get; private set; }
     public string Street { get; private set; }
     public string City { get; private set; }
     public string State { get; private set; }

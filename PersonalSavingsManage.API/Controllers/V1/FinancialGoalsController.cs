@@ -46,7 +46,7 @@ public class FinancialGoalsController : ControllerBase
     [HttpGet("{id}")]
     [ProducesResponseType(typeof(FinancialGoalViewModel), StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
-    public async Task<IActionResult> GetById(string id)
+    public async Task<IActionResult> GetById(Guid id)
     {
         var query = new GetFinacialGoalByIdQuery(id);
 
@@ -82,7 +82,7 @@ public class FinancialGoalsController : ControllerBase
     [HttpPut("{id}")]
     [ProducesResponseType(typeof(UpdateFinancialGoalCommand), StatusCodes.Status204NoContent)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
-    public async Task<IActionResult> Put(string id, UpdateFinancialGoalCommand command)
+    public async Task<IActionResult> Put(Guid id, UpdateFinancialGoalCommand command)
     {
         var result = await _mediator.Send(command);
 
@@ -101,7 +101,7 @@ public class FinancialGoalsController : ControllerBase
     [HttpDelete("{id}")]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
-    public async Task<IActionResult> Delete(string id)
+    public async Task<IActionResult> Delete(Guid id)
     {
         var command = new DeleteFinancialGoalCommand(id);
 

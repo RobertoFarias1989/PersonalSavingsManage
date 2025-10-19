@@ -6,7 +6,7 @@ namespace PersonalSavingsManage.Application.User.Commands.UpdateUser;
 public class UpdateUserCommand : IRequest<ResultViewModel<Unit>>
 {
 
-    public string Id { get; set; }
+    public Guid Id { get; set; }
     public string? Street { get; set; }
     public string? City { get; set; }
     public string? State { get; set; }

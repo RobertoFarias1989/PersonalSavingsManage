@@ -5,10 +5,10 @@ namespace PersonalSavingsManage.Application.Transaction.Commands.DeleteTransacti
 
 public class DeleteTransactionCommand : IRequest<ResultViewModel<Unit>>
 {
-    public DeleteTransactionCommand(string id)
+    public DeleteTransactionCommand(Guid id)
     {
         Id = id;
     }
 
-    public string Id { get; private set; }
+    public Guid Id { get; private set; }
 }

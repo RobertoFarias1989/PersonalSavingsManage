@@ -5,7 +5,7 @@ using PersonalSavingsManage.Core.Repositories;
 
 namespace PersonalSavingsManage.Application.Transaction.Commands.CreateTransaction;
 
-public class CreateTransactionCommandHandler : IRequestHandler<CreateTransactionCommand, ResultViewModel<string>>
+public class CreateTransactionCommandHandler : IRequestHandler<CreateTransactionCommand, ResultViewModel<Guid>>
 {
     private readonly ITransactionRepository _repository;
 
@@ -14,7 +14,7 @@ public class CreateTransactionCommandHandler : IRequestHandler<CreateTransaction
         _repository = repository;
     }
 
-    public async Task<ResultViewModel<string>> Handle(CreateTransactionCommand request, CancellationToken cancellationToken)
+    public async Task<ResultViewModel<Guid>> Handle(CreateTransactionCommand request, CancellationToken cancellationToken)
     {
         var transaction = new Core.Entities.Transaction(
             request.Amount,
@@ -22,6 +22,6 @@ public class CreateTransactionCommandHandler : IRequestHandler<CreateTransaction
 
         await _repository.AddAsync(transaction);
 
-        return ResultViewModel<string>.Success(transaction.Id);
+        return ResultViewModel<Guid>.Success(transaction.Id);
     }
 }

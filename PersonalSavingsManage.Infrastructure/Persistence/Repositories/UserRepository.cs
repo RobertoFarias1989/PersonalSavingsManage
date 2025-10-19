@@ -16,7 +16,7 @@ public class UserRepository : IUserRepository
         return await _collection.Find(u => true).ToListAsync();
     }
 
-    public async Task<User> GetByIdAsync(string id)
+    public async Task<User> GetByIdAsync(Guid id)
     {
         return await _collection.Find(u => u.Id == id).SingleOrDefaultAsync();
     }
@@ -35,7 +35,7 @@ public class UserRepository : IUserRepository
           .SingleOrDefaultAsync();
     }
 
-    public async Task Addasync(User user)
+    public async Task AddAsync(User user)
     {
         await _collection.InsertOneAsync(user);
     }

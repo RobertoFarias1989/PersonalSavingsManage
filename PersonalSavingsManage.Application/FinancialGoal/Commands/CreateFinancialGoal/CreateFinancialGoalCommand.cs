@@ -4,7 +4,7 @@ using PersonalSavingsManage.Core.Models;
 
 namespace PersonalSavingsManage.Application.FinancialGoal.Commands.CreateFinancialGoal;
 
-public class CreateFinancialGoalCommand : IRequest<ResultViewModel<string>>
+public class CreateFinancialGoalCommand : IRequest<ResultViewModel<Guid>>
 {
     public string Title { get;  set; } = string.Empty;
     public decimal TargetAmount { get;  set; }

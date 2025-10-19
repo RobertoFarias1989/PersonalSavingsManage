@@ -47,7 +47,7 @@ public class TransactionsController : ControllerBase
     [HttpGet("{id}")]
     [ProducesResponseType(typeof(TransactionDetailsViewModel), StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
-    public async Task<IActionResult> GetById(string id)
+    public async Task<IActionResult> GetById(Guid id)
     {
         var query = new GetTransactionByIdQuery(id);
 
@@ -84,7 +84,7 @@ public class TransactionsController : ControllerBase
     [HttpPut("{id}")]
     [ProducesResponseType(typeof(UpdateTransactionCommand), StatusCodes.Status204NoContent)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
-    public async Task<IActionResult> Put(string id, UpdateTransactionCommand command)
+    public async Task<IActionResult> Put(Guid id, UpdateTransactionCommand command)
     {
         var result = await _mediator.Send(command);
 
@@ -103,7 +103,7 @@ public class TransactionsController : ControllerBase
     [HttpDelete("{id}")]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
-    public async Task<IActionResult> Delete(string id)
+    public async Task<IActionResult> Delete(Guid id)
     {
         var command = new DeleteTransactionCommand(id);
 

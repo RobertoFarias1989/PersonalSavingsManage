@@ -5,7 +5,7 @@ using PersonalSavingsManage.Core.Repositories;
 
 namespace PersonalSavingsManage.Application.FinancialGoal.Commands.CreateFinancialGoal;
 
-public class CreateFinancialGoalCommandHandler : IRequestHandler<CreateFinancialGoalCommand, ResultViewModel<string>>
+public class CreateFinancialGoalCommandHandler : IRequestHandler<CreateFinancialGoalCommand, ResultViewModel<Guid>>
 {
     private readonly IFinancialGoalRepository _repository;
 
@@ -14,7 +14,7 @@ public class CreateFinancialGoalCommandHandler : IRequestHandler<CreateFinancial
         _repository = repository;
     }
 
-    public async Task<ResultViewModel<string>> Handle(CreateFinancialGoalCommand request, CancellationToken cancellationToken)
+    public async Task<ResultViewModel<Guid>> Handle(CreateFinancialGoalCommand request, CancellationToken cancellationToken)
     {
         var imagePath = Path.Combine("ImageGoals", request.ImageGoal!.FileName);
 
@@ -31,6 +31,6 @@ public class CreateFinancialGoalCommandHandler : IRequestHandler<CreateFinancial
 
         await _repository.AddAsync(financialGoal);
 
-        return ResultViewModel<string>.Success(financialGoal.Id);
+        return ResultViewModel<Guid>.Success(financialGoal.Id);
     }
 }
