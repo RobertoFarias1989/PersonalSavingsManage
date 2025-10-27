@@ -65,8 +65,10 @@ public class FinancialGoalsController : ControllerBase
     /// <param name="command"></param>
     /// <returns></returns>
     [HttpPost]
+    [Consumes("multipart/form-data")]
     [ProducesResponseType(typeof(CreateFinancialGoalCommand), StatusCodes.Status200OK)]
-    public async Task<IActionResult> Post(CreateFinancialGoalCommand command)
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    public async Task<IActionResult> Post([FromForm] CreateFinancialGoalCommand command)
     {
         var result = await _mediator.Send(command);
 
@@ -80,9 +82,10 @@ public class FinancialGoalsController : ControllerBase
     /// <param name="command"></param>
     /// <returns></returns>
     [HttpPut("{id}")]
+    [Consumes("multipart/form-data")]
     [ProducesResponseType(typeof(UpdateFinancialGoalCommand), StatusCodes.Status204NoContent)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
-    public async Task<IActionResult> Put(Guid id, UpdateFinancialGoalCommand command)
+    public async Task<IActionResult> Put(Guid id, [FromForm] UpdateFinancialGoalCommand command)
     {
         var result = await _mediator.Send(command);
 

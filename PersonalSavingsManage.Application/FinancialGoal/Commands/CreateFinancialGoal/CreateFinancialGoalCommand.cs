@@ -10,6 +10,4 @@ public class CreateFinancialGoalCommand : IRequest<ResultViewModel<Guid>>
     public decimal TargetAmount { get;  set; }
     public IFormFile? ImageGoal { get; set; }
     public DateTime Deadline { get;  set; }
-    //public decimal IdealMonthlyContribution { get;  set; }
-    public string Status { get; set; } = string.Empty;
 }

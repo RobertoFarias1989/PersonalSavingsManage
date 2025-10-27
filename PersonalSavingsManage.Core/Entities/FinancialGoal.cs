@@ -1,5 +1,8 @@
-﻿using PersonalSavingsManage.Core.Enums;
+﻿using MongoDB.Bson;
+using MongoDB.Bson.Serialization.Attributes;
+using PersonalSavingsManage.Core.Enums;
 using PersonalSavingsManage.Core.Models;
+using System.Text.Json.Serialization;
 using static System.Net.Mime.MediaTypeNames;
 
 namespace PersonalSavingsManage.Core.Entities;
@@ -9,15 +12,14 @@ public class FinancialGoal : BaseEntity
     public FinancialGoal(string title,
         decimal targetAmount,
         string imageGoal,
-        DateTime deadline,
-        FinancialGoalStatusEnum status) : base()
+        DateTime deadline) : base()
     {
         Title = title;
         TargetAmount = targetAmount;
         ImageGoal = imageGoal;
-        Deadline = deadline;        
-        Status = status;
-
+        Deadline = deadline;
+        
+        Status = FinancialGoalStatusEnum.InProgress;
         Transactions = new List<Transaction>();
     }
 
@@ -26,6 +28,8 @@ public class FinancialGoal : BaseEntity
     public string ImageGoal { get; set; }
     public DateTime Deadline { get; private set; }
     public decimal IdealMonthlyContribution { get; private set; }
+    [JsonConverter(typeof(JsonStringEnumConverter))]
+    [BsonRepresentation(BsonType.String)]
     public FinancialGoalStatusEnum Status { get; private set; }
     public List<Transaction> Transactions { get; private set; }
 
@@ -56,14 +60,11 @@ public class FinancialGoal : BaseEntity
         return ResultViewModel.Success();
     }
 
-    //TODO: criar um método para calcular o campo IdealMonthlyContribution
-    //a ideia é ao adicionar um novo registro realizar o cálculo desse campo automaticamente(dividir o TargetAmount pela quantidade de meses tendo por base o DeadLine)
-
     public void CalculateIdealMonthlyContribution(DateTime deadline, decimal targetAmount)
     {
-        var monthAmount = deadline.Month - DateTime.Now.Month;
+        var monthAmount = Math.Abs((deadline.Month - DateTime.Now.Month) + 12 * (deadline.Year - DateTime.Now.Year));
 
-        var contribution = targetAmount / monthAmount;
+        var contribution = Math.Round(targetAmount / monthAmount);
 
         IdealMonthlyContribution = contribution;
     }

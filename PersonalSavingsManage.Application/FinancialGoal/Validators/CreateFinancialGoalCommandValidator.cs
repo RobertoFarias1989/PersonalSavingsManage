@@ -29,12 +29,12 @@ public class CreateFinancialGoalCommandValidator : AbstractValidator<CreateFinan
            .NotNull()
                .WithMessage("Deadline's field mustn't be null.");
 
-        RuleFor(fg => fg.Status)
-            .NotEmpty()
-               .WithMessage("Status's field mustn't be empty.")
-            .NotNull()
-               .WithMessage("Status's field mustn't be null.")
-            .IsEnumName(typeof(FinancialGoalStatusEnum))
-             .WithMessage("Status must match with one of these:InProgress,Complete,Cancelled,OnHold");
+        //RuleFor(fg => fg.Status)
+        //    .NotEmpty()
+        //       .WithMessage("Status's field mustn't be empty.")
+        //    .NotNull()
+        //       .WithMessage("Status's field mustn't be null.")
+        //    .IsEnumName(typeof(FinancialGoalStatusEnum))
+        //     .WithMessage("Status must match with one of these:InProgress,Complete,Cancelled,OnHold");
     }
 }

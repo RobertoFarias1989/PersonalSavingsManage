@@ -6,6 +6,7 @@ using PersonalSavingsManage.Application.Login.Commands;
 using PersonalSavingsManage.Application.PasswordRecovery.Commands;
 using PersonalSavingsManage.Application.User.Commands.CreateUser;
 using PersonalSavingsManage.Application.User.Commands.DeleteUser;
+using PersonalSavingsManage.Application.User.Commands.UpdateUser;
 using PersonalSavingsManage.Application.User.Queries.GetAllUsers;
 using PersonalSavingsManage.Application.User.Queries.GetUserById;
 using PersonalSavingsManage.Application.User.ViewModels;
@@ -71,7 +72,27 @@ public class UsersController : ControllerBase
         var id = await _mediator.Send(command);
 
         return CreatedAtAction(nameof(GetById), new { id = id}, command);
-    }   
+    }
+
+    /// <summary>
+    /// Update a user
+    /// </summary>
+    /// <param name="id"></param>
+    /// <param name="command"></param>
+    /// <returns></returns>
+    [HttpPut("{id}")]
+    [ProducesResponseType(typeof(UpdateUserCommand),StatusCodes.Status204NoContent)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    public async Task<IActionResult> Put(Guid id, UpdateUserCommand command)
+    {
+        var result = await _mediator.Send(command);
+
+        if (!result.IsSuccess)
+            return NotFound(result.Message);
+
+
+        return NoContent();
+    }
 
     /// <summary>
     /// Delete a user

@@ -25,7 +25,7 @@ public class UpdateFinancialGoalCommandHandler : IRequestHandler<UpdateFinancial
                 var olderImagePath = financialGoal.ImageGoal;
                 var imagePath = Path.Combine("ImageGoals", request.ImageGoal!.FileName);
 
-                if (string.IsNullOrEmpty(olderImagePath) && File.Exists(olderImagePath))
+                if (!string.IsNullOrEmpty(olderImagePath) && File.Exists(olderImagePath))
                 {
                     File.Delete(olderImagePath);
                 }

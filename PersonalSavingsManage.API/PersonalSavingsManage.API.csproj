@@ -19,4 +19,8 @@
     <ProjectReference Include="..\PersonalSavingsManage.Application\PersonalSavingsManage.Application.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="ImageGoals\" />
+  </ItemGroup>
+
 </Project>

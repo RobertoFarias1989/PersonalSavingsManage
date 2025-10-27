@@ -20,12 +20,13 @@ public class CreateFinancialGoalCommandHandler : IRequestHandler<CreateFinancial
 
         using Stream fileStream = new FileStream(imagePath, FileMode.Create);
 
+        request.ImageGoal.CopyTo(fileStream);
+
         var financialGoal = new Core.Entities.FinancialGoal(
             request.Title,
             request.TargetAmount,
             imagePath,
-            request.Deadline,           
-            (FinancialGoalStatusEnum)Enum.Parse(typeof(FinancialGoalStatusEnum),request.Status));
+            request.Deadline);
 
         financialGoal.CalculateIdealMonthlyContribution(request.Deadline, request.TargetAmount);
 
