@@ -21,6 +21,6 @@ public class UpdateTransactionCommandValidator : AbstractValidator<UpdateTransac
            .NotNull()
               .WithMessage("Type's field mustn't be null.")
            .IsEnumName(typeof(TransactionTypeEnum))
-              .WithMessage("Status must match with one of these:Deposit,Withdraw");
+              .WithMessage("Type must match with one of these:Deposit,Withdraw");
     }
 }

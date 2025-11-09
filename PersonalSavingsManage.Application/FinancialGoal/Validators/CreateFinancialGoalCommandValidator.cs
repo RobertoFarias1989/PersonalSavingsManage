@@ -29,6 +29,12 @@ public class CreateFinancialGoalCommandValidator : AbstractValidator<CreateFinan
            .NotNull()
                .WithMessage("Deadline's field mustn't be null.");
 
+        RuleFor(fg => fg.UserId)
+            .NotEmpty()
+                .WithMessage("UserId's field mustn't be empty.")
+            .NotNull()
+                .WithMessage("UserId's field mustn't be null.");
+
         //RuleFor(fg => fg.Status)
         //    .NotEmpty()
         //       .WithMessage("Status's field mustn't be empty.")

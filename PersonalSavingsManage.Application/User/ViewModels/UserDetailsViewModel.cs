@@ -18,7 +18,6 @@ public class UserDetailsViewModel
         bool isDeleted,
         DateTime createdAt,
         DateTime? updatedAt,
-        List<TransactionViewModel> transactions,
         List<FinancialGoalViewModel> financialGoals)
     {
         Id = id;
@@ -34,7 +33,6 @@ public class UserDetailsViewModel
         IsDeleted = isDeleted;
         CreatedAt = createdAt;
         UpdatedAt = updatedAt;
-        Transactions = transactions;
         FinancialGoals = financialGoals;
     }
 
@@ -51,20 +49,16 @@ public class UserDetailsViewModel
     public bool IsDeleted { get; private set; }
     public DateTime CreatedAt { get; private set; }
     public DateTime? UpdatedAt { get; private set; }
-    public List<TransactionViewModel> Transactions { get; private set; }
     public List<FinancialGoalViewModel>  FinancialGoals { get; private set; }
 
     public static UserDetailsViewModel FromEntity(Core.Entities.User entity)
     {
-        var transactions = entity.Transactions?
-        .Select(TransactionViewModel.FromEntity)
-        .ToList() ?? new List<TransactionViewModel>();
 
         var financialGoals = entity.Goals?
         .Select(FinancialGoalViewModel.FromEntity)
         .ToList() ?? new List<FinancialGoalViewModel>();
 
         return new UserDetailsViewModel(entity.Id, entity.Address.Street, entity.Address.City, entity.Address.State, entity.Address.PostalCode, entity.Address.Country, entity.Email.EmailAddress,
-            entity.Name.FullName, entity.Password.PasswordValue, entity.Role, entity.IsDeleted, entity.CreatedAt, entity.UpdatedAt, transactions, financialGoals);
+            entity.Name.FullName, entity.Password.PasswordValue, entity.Role, entity.IsDeleted, entity.CreatedAt, entity.UpdatedAt, financialGoals);
     }
 }

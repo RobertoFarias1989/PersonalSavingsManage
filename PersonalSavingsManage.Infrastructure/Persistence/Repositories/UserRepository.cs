@@ -1,4 +1,5 @@
-﻿using MongoDB.Driver;
+﻿using Amazon.Runtime.Internal;
+using MongoDB.Driver;
 using PersonalSavingsManage.Core.Entities;
 using PersonalSavingsManage.Core.Repositories;
 
@@ -44,5 +45,40 @@ public class UserRepository : IUserRepository
     {
         await _collection.ReplaceOneAsync(u => u.Id == user.Id, user);
     }
-    
+
+    public async Task AddGoalToUserAsync(Guid userId, FinancialGoal goal)
+    {
+        var filterUser = Builders<User>.Filter.Eq(u => u.Id, userId);
+
+        var updateUser = Builders<User>.Update.Push(u => u.Goals, goal);
+
+        await _collection.UpdateOneAsync(filterUser, updateUser);
+    }
+
+    public async Task<FinancialGoal> GetUserGoalAsync(Guid userId, Guid goalId)
+    {
+        var filter = Builders<User>.Filter.And(
+            Builders<User>.Filter.Eq(u => u.Id, userId),
+            Builders<User>.Filter.ElemMatch(u => u.Goals, g => g.Id == goalId && g.IsDeleted != true));
+
+        var projection = Builders<User>.Projection
+            .ElemMatch(u => u.Goals, g => g.Id == goalId);
+
+        var partialUser = await _collection
+            .Find(filter)
+            .Project<User>(projection)
+            .SingleOrDefaultAsync();
+
+        return partialUser?.Goals?.SingleOrDefault();
+
+    }
+
+    public async Task UpdateGoalToUserAsync(Guid userId, FinancialGoal goal)
+    {
+        var userFilter = Builders<User>.Filter.Eq(u => u.Id, userId);
+
+        var updateGoal = Builders<User>.Update.Set("Goals.$[g]", goal);
+
+        await _collection.UpdateOneAsync(userFilter, updateGoal);
+    }
 }

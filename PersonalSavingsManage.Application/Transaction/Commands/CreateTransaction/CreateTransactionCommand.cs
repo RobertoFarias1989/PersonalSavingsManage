@@ -7,4 +7,6 @@ public class CreateTransactionCommand : IRequest<ResultViewModel<Guid>>
 {
     public decimal Amount { get;  set; }
     public string Type { get; set; } = string.Empty;
+    public Guid UserId { get;  set; }
+    public Guid GoalId { get;  set; }
 }

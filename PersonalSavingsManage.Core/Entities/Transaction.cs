@@ -1,4 +1,7 @@
-﻿using PersonalSavingsManage.Core.Enums;
+﻿using MongoDB.Bson.Serialization.Attributes;
+using MongoDB.Bson;
+using PersonalSavingsManage.Core.Enums;
+using System.Text.Json.Serialization;
 
 namespace PersonalSavingsManage.Core.Entities;
 
@@ -10,9 +13,13 @@ public class Transaction : BaseEntity
         Type = type;
 
         TransactionDate = DateTime.Now;
+        
     }
 
     public decimal Amount { get; private set; }
+
+    [JsonConverter(typeof(JsonStringEnumConverter))]
+    [BsonRepresentation(BsonType.String)]
     public TransactionTypeEnum Type { get; private set; }
     public DateTime TransactionDate { get; private set; }
 
@@ -20,9 +27,6 @@ public class Transaction : BaseEntity
     {
         Amount = amount;
         Type = type;
-
-        //TODO: ver se faz sentido permitir mudar o Type da Transaction
-        //se sim, ver tratamento para o impacto disso no saldo do FinancialGoal
 
         UpdatedAt = DateTime.Now;
     }

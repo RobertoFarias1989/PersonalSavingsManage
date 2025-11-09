@@ -10,4 +10,7 @@ public interface IUserRepository
     Task<User> GetUserByEmailAsync(string email);
     Task AddAsync(User user);
     Task UpdateAsync(User user);
+    Task AddGoalToUserAsync(Guid userId, FinancialGoal goal);
+    Task<FinancialGoal> GetUserGoalAsync(Guid userId, Guid goalId);
+    Task UpdateGoalToUserAsync(Guid userId, FinancialGoal goal);
 }

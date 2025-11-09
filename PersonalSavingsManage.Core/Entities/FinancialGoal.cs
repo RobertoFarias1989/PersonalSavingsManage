@@ -3,7 +3,6 @@ using MongoDB.Bson.Serialization.Attributes;
 using PersonalSavingsManage.Core.Enums;
 using PersonalSavingsManage.Core.Models;
 using System.Text.Json.Serialization;
-using static System.Net.Mime.MediaTypeNames;
 
 namespace PersonalSavingsManage.Core.Entities;
 
@@ -28,6 +27,7 @@ public class FinancialGoal : BaseEntity
     public string ImageGoal { get; set; }
     public DateTime Deadline { get; private set; }
     public decimal IdealMonthlyContribution { get; private set; }
+
     [JsonConverter(typeof(JsonStringEnumConverter))]
     [BsonRepresentation(BsonType.String)]
     public FinancialGoalStatusEnum Status { get; private set; }

@@ -72,6 +72,9 @@ public class FinancialGoalsController : ControllerBase
     {
         var result = await _mediator.Send(command);
 
+        if (!result.IsSuccess)
+            return NotFound(result.Message);
+
         return CreatedAtAction(nameof(GetById), new { id = result.Data }, command);
     }
 

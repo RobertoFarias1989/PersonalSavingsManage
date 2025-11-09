@@ -4,8 +4,10 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using PersonalSavingsManage.Application.Login.Commands;
 using PersonalSavingsManage.Application.PasswordRecovery.Commands;
+using PersonalSavingsManage.Application.User.Commands.CreateGoalToUser;
 using PersonalSavingsManage.Application.User.Commands.CreateUser;
 using PersonalSavingsManage.Application.User.Commands.DeleteUser;
+using PersonalSavingsManage.Application.User.Commands.UpdateGoalToUser;
 using PersonalSavingsManage.Application.User.Commands.UpdateUser;
 using PersonalSavingsManage.Application.User.Queries.GetAllUsers;
 using PersonalSavingsManage.Application.User.Queries.GetUserById;
@@ -109,6 +111,47 @@ public class UsersController : ControllerBase
         var result = await _mediator.Send(command);
 
         if(!result.IsSuccess)
+            return NotFound(result.Message);
+
+        return NoContent();
+    }
+
+    /// <summary>
+    /// Add a goal to a user
+    /// </summary>
+    /// <param name="id"></param>
+    /// <param name="command"></param>
+    /// <returns></returns>
+    [HttpPost("{id}/add-goal")]
+    [Consumes("multipart/form-data")]
+    [ProducesResponseType(typeof(CreateGoalToUserCommand), StatusCodes.Status204NoContent)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    public async Task<IActionResult> PostAddGoal(Guid id, CreateGoalToUserCommand command)
+    {
+        var result = await _mediator.Send(command);
+
+        if (!result.IsSuccess)
+            return NotFound(result.Message);
+
+        return NoContent();
+    }
+
+    /// <summary>
+    /// Update a goal to a user
+    /// </summary>
+    /// <param name="userId"></param>
+    /// <param name="goalId"></param>
+    /// <param name="command"></param>
+    /// <returns></returns>
+    [HttpPut("{userId}/goal/{goalId}")]
+    [Consumes("multipart/form-data")]
+    [ProducesResponseType(typeof(UpdateGoalToUserCommand), StatusCodes.Status204NoContent)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    public async Task<IActionResult> PutGoalToUser(Guid userId, Guid goalId, UpdateGoalToUserCommand command)
+    {
+        var result = await _mediator.Send(command);
+
+        if (!result.IsSuccess)
             return NotFound(result.Message);
 
         return NoContent();

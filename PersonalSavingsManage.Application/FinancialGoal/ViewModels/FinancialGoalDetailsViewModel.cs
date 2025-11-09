@@ -34,6 +34,7 @@ public class FinancialGoalDetailsViewModel
     public decimal TargetAmount { get; private set; }
     public string ImageGoal {  get; private set; }
     public DateTime Deadline { get; private set; }
+    public Guid UserId { get; private set; }
     public decimal IdealMonthlyContribution { get; private set; }
     public string Status { get; private set; }
     public bool IsDeleted { get; private set; }

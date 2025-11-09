@@ -11,7 +11,7 @@ public abstract class BaseEntity
         UpdatedAt = null;
     }
 
-    public Guid Id { get; protected set; }
+    public Guid Id { get; protected set; } = Guid.NewGuid();
     public bool IsDeleted { get; protected set; }
     public DateTime CreatedAt { get; protected set; }
     public DateTime? UpdatedAt { get; protected set; }
