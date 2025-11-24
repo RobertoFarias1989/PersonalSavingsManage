@@ -4,7 +4,7 @@ using PersonalSavingsManage.Core.Models;
 
 namespace PersonalSavingsManage.Application.User.Commands.CreateGoalToUser;
 
-public class CreateGoalToUserCommand : IRequest<ResultViewModel<Guid>>
+public class CreateGoalToUserCommand : IRequest<ResultViewModel<Unit>>
 {
     public string Title { get; set; } = string.Empty;
     public decimal TargetAmount { get; set; }

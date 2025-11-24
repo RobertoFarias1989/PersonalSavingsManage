@@ -22,7 +22,7 @@ namespace PersonalSavingsManage.API.Controllers.V1;
 [ApiVersion(1)]
 public class UsersController : ControllerBase
 {
-    private readonly IMediator _mediator;
+    readonly IMediator _mediator;
 
     public UsersController(IMediator mediator)
     {

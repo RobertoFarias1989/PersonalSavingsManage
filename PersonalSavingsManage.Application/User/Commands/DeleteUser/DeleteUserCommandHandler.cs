@@ -6,7 +6,7 @@ namespace PersonalSavingsManage.Application.User.Commands.DeleteUser;
 
 public class DeleteUserCommandHandler : IRequestHandler<DeleteUserCommand, ResultViewModel>
 {
-    private readonly IUserRepository _repository;
+    readonly IUserRepository _repository;
 
     public DeleteUserCommandHandler(IUserRepository repository)
     {

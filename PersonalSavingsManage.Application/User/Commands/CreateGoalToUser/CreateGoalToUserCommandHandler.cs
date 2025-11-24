@@ -1,26 +1,24 @@
 ﻿using MediatR;
-using MongoDB.Driver;
-using PersonalSavingsManage.Application.FinancialGoal.Commands.CreateFinancialGoal;
 using PersonalSavingsManage.Core.Models;
 using PersonalSavingsManage.Core.Repositories;
 
 namespace PersonalSavingsManage.Application.User.Commands.CreateGoalToUser;
 
-public class CreateGoalToUserCommandHandler : IRequestHandler<CreateGoalToUserCommand, ResultViewModel<Guid>>
+public class CreateGoalToUserCommandHandler : IRequestHandler<CreateGoalToUserCommand, ResultViewModel<Unit>>
 {
-    private readonly IUserRepository _userRepository;
+    readonly IUserRepository _userRepository;
 
     public CreateGoalToUserCommandHandler(IUserRepository userRepository)
     {
         _userRepository = userRepository;
     }
 
-    public async Task<ResultViewModel<Guid>> Handle(CreateGoalToUserCommand request, CancellationToken cancellationToken)
+    public async Task<ResultViewModel<Unit>> Handle(CreateGoalToUserCommand request, CancellationToken cancellationToken)
     {
         var user = await _userRepository.GetByIdAsync(request.UserId);
 
         if (user == null || user.IsDeleted == true)
-            return ResultViewModel<Guid>.Error("User was not found or already deleted.");
+            return ResultViewModel<Unit>.Error("User was not found or already deleted.");
 
         var imagePath = Path.Combine("ImageGoals", request.ImageGoal!.FileName);
 
@@ -38,6 +36,6 @@ public class CreateGoalToUserCommandHandler : IRequestHandler<CreateGoalToUserCo
 
         await _userRepository.AddGoalToUserAsync(request.UserId, financialGoal);
 
-        return ResultViewModel<Guid>.Success(financialGoal.Id);
+        return ResultViewModel<Unit>.Success(Unit.Value);
     }
 }

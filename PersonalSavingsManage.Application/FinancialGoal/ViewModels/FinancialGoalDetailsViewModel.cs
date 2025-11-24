@@ -14,7 +14,7 @@ public class FinancialGoalDetailsViewModel
         bool isDeleted,
         DateTime createdAt,
         DateTime? updatedAt,
-        List<TransactionViewModel> transactions)
+        List<TransactionDetailsViewModel> transactions)
     {
         Id = id;
         Title = title;
@@ -40,13 +40,13 @@ public class FinancialGoalDetailsViewModel
     public bool IsDeleted { get; private set; }
     public DateTime CreatedAt { get; private set; }
     public DateTime? UpdatedAt { get; private set; }
-    public List<TransactionViewModel>  Transactions { get; private set; }
+    public List<TransactionDetailsViewModel>  Transactions { get; private set; }
 
     public static FinancialGoalDetailsViewModel FromEntity(Core.Entities.FinancialGoal entity)
     {
         var transactions = entity.Transactions?
-        .Select(TransactionViewModel.FromEntity)
-        .ToList() ?? new List<TransactionViewModel>();
+        .Select(TransactionDetailsViewModel.FromEntity)
+        .ToList() ?? new List<TransactionDetailsViewModel>();
 
 
         return new FinancialGoalDetailsViewModel(entity.Id, entity.Title, entity.TargetAmount, entity.ImageGoal, entity.Deadline, entity.IdealMonthlyContribution, entity.Status.ToString(),

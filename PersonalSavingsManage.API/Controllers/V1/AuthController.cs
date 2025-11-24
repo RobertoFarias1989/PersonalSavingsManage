@@ -14,7 +14,7 @@ namespace PersonalSavingsManage.API.Controllers.V1;
 [ApiVersion(1)]
 public class AuthController : ControllerBase
 {
-    private readonly IMediator _mediator;
+    readonly IMediator _mediator;
 
     public AuthController(IMediator mediator)
     {

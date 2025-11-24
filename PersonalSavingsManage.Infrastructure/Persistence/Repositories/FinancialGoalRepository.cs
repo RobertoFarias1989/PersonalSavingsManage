@@ -6,7 +6,7 @@ namespace PersonalSavingsManage.Infrastructure.Persistence.Repositories;
 
 public class FinancialGoalRepository : IFinancialGoalRepository
 {
-    private readonly IMongoCollection<FinancialGoal> _collection;
+    readonly IMongoCollection<FinancialGoal> _collection;
     public FinancialGoalRepository(IMongoDatabase mongoDatabase)
     {
         _collection = mongoDatabase.GetCollection<FinancialGoal>("financialgoals");

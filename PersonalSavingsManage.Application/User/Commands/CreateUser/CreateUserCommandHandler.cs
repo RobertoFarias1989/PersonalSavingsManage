@@ -8,8 +8,8 @@ namespace PersonalSavingsManage.Application.User.Commands.CreateUser;
 
 public class CreateUserCommandHandler : IRequestHandler<CreateUserCommand, Guid>
 {
-    private readonly IUserRepository _repository;
-    private readonly IAuthService _authService;
+    readonly IUserRepository _repository;
+    readonly IAuthService _authService;
 
     public CreateUserCommandHandler(IUserRepository repository, IAuthService authService)
     {

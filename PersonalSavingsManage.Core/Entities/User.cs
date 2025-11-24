@@ -13,7 +13,6 @@ public class User : BaseEntity
         Role = role;
 
         Goals = new List<FinancialGoal>();
-        //Transactions = new List<Transaction>();
     }
 
     public Address Address { get; private set; }
@@ -21,8 +20,7 @@ public class User : BaseEntity
     public Name Name { get; private set; }
     public Password Password { get; private set; }
     public string Role { get; private set; }
-    public List<FinancialGoal>  Goals { get; private set; }
-    //public List<Transaction>  Transactions { get; private set; }
+    public List<FinancialGoal>  Goals { get; private set; }   
 
     public void Update(Address address, Email email, Name name, Password password)
     {

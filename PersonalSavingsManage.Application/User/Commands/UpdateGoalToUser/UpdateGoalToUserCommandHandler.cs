@@ -6,7 +6,7 @@ namespace PersonalSavingsManage.Application.User.Commands.UpdateGoalToUser;
 
 public class UpdateGoalToUserCommandHandler : IRequestHandler<UpdateGoalToUserCommand, ResultViewModel<Unit>>
 {
-    private readonly IUserRepository _userRepository;
+    readonly IUserRepository _userRepository;
 
     public UpdateGoalToUserCommandHandler(IUserRepository userRepository)
     {

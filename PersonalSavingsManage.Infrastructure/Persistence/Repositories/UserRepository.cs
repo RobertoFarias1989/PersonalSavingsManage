@@ -1,4 +1,5 @@
 ﻿using Amazon.Runtime.Internal;
+using MongoDB.Bson;
 using MongoDB.Driver;
 using PersonalSavingsManage.Core.Entities;
 using PersonalSavingsManage.Core.Repositories;
@@ -7,7 +8,7 @@ namespace PersonalSavingsManage.Infrastructure.Persistence.Repositories;
 
 public class UserRepository : IUserRepository
 {
-    private readonly IMongoCollection<User> _collection;
+    readonly IMongoCollection<User> _collection;
     public UserRepository(IMongoDatabase mongoDatabase)
     {
         _collection = mongoDatabase.GetCollection<User>("users");
@@ -80,5 +81,46 @@ public class UserRepository : IUserRepository
         var updateGoal = Builders<User>.Update.Set("Goals.$[g]", goal);
 
         await _collection.UpdateOneAsync(userFilter, updateGoal);
+    }
+
+    public async Task AddTransactionToGoalAsync(Guid userId, Guid goalId, Transaction transaction)
+    {
+        var filter = Builders<User>.Filter.And(
+            Builders<User>.Filter.Eq(u => u.Id, userId),
+            Builders<User>.Filter.ElemMatch(u => u.Goals, g => g.Id == goalId));
+
+        var updateUser = Builders<User>.Update.Push("Goals.$.Transactions", transaction);
+
+        await _collection.UpdateOneAsync(filter, updateUser);
+    }
+
+    public async Task UpdateTransactionToGoalAsync(Guid userId, Guid goalId, Transaction transaction)
+    {
+        // Filtro do documento User
+        var filter = Builders<User>.Filter.Eq(u => u.Id, userId);
+
+        // Atualização: set na transaction certa dentro do goal certo
+        var update = Builders<User>.Update
+            .Set("Goals.$[goal].Transactions.$[tran]", transaction);
+
+        // Filtros para os arrays (Goals e Transactions)
+        var arrayFilters = new List<ArrayFilterDefinition>
+        {
+            // Filtra o Goal correto
+            new BsonDocumentArrayFilterDefinition<BsonDocument>(
+                new BsonDocument("goal.Id", goalId)
+            ),
+            // Filtra a Transaction correta dentro do Goal
+            new BsonDocumentArrayFilterDefinition<BsonDocument>(
+                new BsonDocument("tran.Id", transaction.Id)
+            )
+        };
+
+        var options = new UpdateOptions
+        {
+            ArrayFilters = arrayFilters
+        };
+
+        await _collection.UpdateOneAsync(filter, update, options);
     }
 }

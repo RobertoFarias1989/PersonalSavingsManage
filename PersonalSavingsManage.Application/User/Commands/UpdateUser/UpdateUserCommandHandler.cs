@@ -8,8 +8,8 @@ namespace PersonalSavingsManage.Application.User.Commands.UpdateUser;
 
 public class UpdateUserCommandHandler : IRequestHandler<UpdateUserCommand, ResultViewModel<Unit>>
 {
-    private readonly IUserRepository _repository;
-    private readonly IAuthService _authService;
+    readonly IUserRepository _repository;
+    readonly IAuthService _authService;
 
     public UpdateUserCommandHandler(IUserRepository repository, IAuthService authService)
     {

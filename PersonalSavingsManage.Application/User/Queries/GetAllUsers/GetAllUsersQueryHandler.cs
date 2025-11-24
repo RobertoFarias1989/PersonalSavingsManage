@@ -7,7 +7,7 @@ namespace PersonalSavingsManage.Application.User.Queries.GetAllUsers;
 
 public class GetAllUsersQueryHandler : IRequestHandler<GetAllUsersQuery, ResultViewModel<List<UserViewModel>>>
 {
-    private readonly IUserRepository _repository;
+    readonly IUserRepository _repository;
 
     public GetAllUsersQueryHandler(IUserRepository repository)
     {

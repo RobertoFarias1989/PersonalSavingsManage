@@ -6,7 +6,7 @@ namespace PersonalSavingsManage.Infrastructure.Persistence.Repositories;
 
 public class TransactionRepository : ITransactionRepository
 {
-    private readonly IMongoCollection<Transaction> _collection;
+    readonly IMongoCollection<Transaction> _collection;
     public TransactionRepository(IMongoDatabase mongoDatabase)
     {
         _collection = mongoDatabase.GetCollection<Transaction>("transactions");

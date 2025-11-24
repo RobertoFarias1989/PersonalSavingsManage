@@ -13,4 +13,6 @@ public interface IUserRepository
     Task AddGoalToUserAsync(Guid userId, FinancialGoal goal);
     Task<FinancialGoal> GetUserGoalAsync(Guid userId, Guid goalId);
     Task UpdateGoalToUserAsync(Guid userId, FinancialGoal goal);
+    Task AddTransactionToGoalAsync(Guid userId, Guid goalId, Transaction transaction);
+    Task UpdateTransactionToGoalAsync(Guid userId, Guid goalId, Transaction transaction);
 }

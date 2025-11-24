@@ -1,7 +1,7 @@
 ﻿using FluentValidation;
 using MediatR;
 using Microsoft.Extensions.DependencyInjection;
-using PersonalSavingsManage.Application.FinancialGoal.Commands.CreateFinancialGoal;
+using PersonalSavingsManage.Application.User.Commands.CreateGoalToUser;
 using System.Reflection;
 
 namespace PersonalSavingsManage.Application;
@@ -19,7 +19,7 @@ public static class ApplicationDependencyInjection
 
     private static IServiceCollection AddMediator(this IServiceCollection services)
     {
-        services.AddMediatR(typeof(CreateFinancialGoalCommand));
+        services.AddMediatR(typeof(CreateGoalToUserCommand));
 
         return services;
     }

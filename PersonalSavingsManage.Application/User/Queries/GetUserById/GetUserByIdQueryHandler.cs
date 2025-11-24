@@ -7,7 +7,7 @@ namespace PersonalSavingsManage.Application.User.Queries.GetUserById;
 
 public class GetUserByIdQueryHandler : IRequestHandler<GetUserByIdQuery, ResultViewModel<UserDetailsViewModel>>
 {
-    private readonly IUserRepository _repository;
+    readonly IUserRepository _repository;
 
     public GetUserByIdQueryHandler(IUserRepository repository)
     {
