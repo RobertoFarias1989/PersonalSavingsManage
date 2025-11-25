@@ -4,7 +4,6 @@ using Microsoft.AspNetCore.Mvc;
 using PersonalSavingsManage.Application.FinancialGoal.Commands.CreateTransaction;
 using PersonalSavingsManage.Application.FinancialGoal.Commands.DeleteTransaction;
 using PersonalSavingsManage.Application.FinancialGoal.Commands.UpdateTransaction;
-using PersonalSavingsManage.Application.Transaction.Commands.CreateTransaction;
 
 namespace PersonalSavingsManage.API.Controllers.V1;
 

@@ -19,7 +19,6 @@
   <ItemGroup>
     <Folder Include="PasswordRecovery\ViewModels\" />
     <Folder Include="PasswordRecovery\Validators\" />
-    <Folder Include="User\Commands\DeleteGoalToUser\" />
   </ItemGroup>
 
 </Project>

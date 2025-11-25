@@ -18,7 +18,7 @@ public class UserDetailsViewModel
         bool isDeleted,
         DateTime createdAt,
         DateTime? updatedAt,
-        List<FinancialGoalViewModel> financialGoals)
+        List<FinancialGoalDetailsViewModel> financialGoals)
     {
         Id = id;
         Street = street;
@@ -49,14 +49,14 @@ public class UserDetailsViewModel
     public bool IsDeleted { get; private set; }
     public DateTime CreatedAt { get; private set; }
     public DateTime? UpdatedAt { get; private set; }
-    public List<FinancialGoalViewModel>  FinancialGoals { get; private set; }
+    public List<FinancialGoalDetailsViewModel>  FinancialGoals { get; private set; }
 
     public static UserDetailsViewModel FromEntity(Core.Entities.User entity)
     {
 
         var financialGoals = entity.Goals?
-        .Select(FinancialGoalViewModel.FromEntity)
-        .ToList() ?? new List<FinancialGoalViewModel>();
+        .Select(FinancialGoalDetailsViewModel.FromEntity)
+        .ToList() ?? new List<FinancialGoalDetailsViewModel>();
 
         return new UserDetailsViewModel(entity.Id, entity.Address.Street, entity.Address.City, entity.Address.State, entity.Address.PostalCode, entity.Address.Country, entity.Email.EmailAddress,
             entity.Name.FullName, entity.Password.PasswordValue, entity.Role, entity.IsDeleted, entity.CreatedAt, entity.UpdatedAt, financialGoals);
