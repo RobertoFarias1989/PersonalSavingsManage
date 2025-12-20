@@ -1,6 +1,6 @@
 ﻿namespace PersonalSavingsManage.Core.Enums;
 
-public enum FinancialGoalStatusEnum
+public enum GoalStatusEnum
 {
     InProgress,
     Complete,

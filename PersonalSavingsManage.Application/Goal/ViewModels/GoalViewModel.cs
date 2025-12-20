@@ -1,8 +1,8 @@
 ﻿namespace PersonalSavingsManage.Application.FinancialGoal.ViewModels;
 
-public class FinancialGoalViewModel
+public class GoalViewModel
 {
-    public FinancialGoalViewModel(string id,
+    public GoalViewModel(string id,
         string title, decimal targetAmount, DateTime deadline, decimal idealMonthlyContribution, string status)
     {
         Id = id;

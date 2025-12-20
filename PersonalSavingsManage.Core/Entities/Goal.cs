@@ -2,12 +2,12 @@
 
 namespace PersonalSavingsManage.Core.Entities;
 
-public class FinancialGoal : BaseEntity
+public class Goal : BaseEntity
 {
-    public FinancialGoal(string title,
+    public Goal(string title,
         decimal targetAmount,
         DateTime deadline,
-        FinancialGoalStatusEnum status) : base()
+        GoalStatusEnum status) : base()
     {
         Title = title;
         TargetAmount = targetAmount;
@@ -21,7 +21,7 @@ public class FinancialGoal : BaseEntity
     public decimal TargetAmount { get; private set; }
     public DateTime Deadline { get; private set; }
     public decimal IdealMonthlyContribution { get; private set; }
-    public FinancialGoalStatusEnum Status { get; private set; }
+    public GoalStatusEnum Status { get; private set; }
     public List<Transaction> Transactions { get; private set; }
 
     public void Update(string title,
@@ -37,10 +37,10 @@ public class FinancialGoal : BaseEntity
 
     public override void SetAsDelete()
     {
-        if(Status != FinancialGoalStatusEnum.Complete)
+        if(Status != GoalStatusEnum.Complete)
         {
             IsDeleted = true;
-            Status = FinancialGoalStatusEnum.Cancelled;
+            Status = GoalStatusEnum.Cancelled;
             UpdatedAt = DateTime.Now;
         }
         else

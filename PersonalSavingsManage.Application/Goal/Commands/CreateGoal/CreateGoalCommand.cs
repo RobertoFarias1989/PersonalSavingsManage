@@ -2,7 +2,7 @@
 
 namespace PersonalSavingsManage.Application.FinancialGoal.Commands.CreateFinancialGoal;
 
-public class CreateFinancialGoalCommand : IRequest<string>
+public class CreateGoalCommand : IRequest<string>
 {
     public string Title { get;  set; } = string.Empty;
     public decimal TargetAmount { get;  set; }

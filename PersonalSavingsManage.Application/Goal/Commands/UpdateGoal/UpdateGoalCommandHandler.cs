@@ -3,16 +3,16 @@ using PersonalSavingsManage.Core.Repositories;
 
 namespace PersonalSavingsManage.Application.FinancialGoal.Commands.UpdateFinancialGoal;
 
-public class UpdateFinancialGoalCommandHandler : IRequestHandler<UpdateFinancialGoalCommand, Unit>
+public class UpdateGoalCommandHandler : IRequestHandler<UpdateGoalCommand, Unit>
 {
-    private readonly IFinancialGoalRepository _repository;
+    private readonly IGoalRepository _repository;
 
-    public UpdateFinancialGoalCommandHandler(IFinancialGoalRepository repository)
+    public UpdateGoalCommandHandler(IGoalRepository repository)
     {
         _repository = repository;
     }
 
-    public async Task<Unit> Handle(UpdateFinancialGoalCommand request, CancellationToken cancellationToken)
+    public async Task<Unit> Handle(UpdateGoalCommand request, CancellationToken cancellationToken)
     {
         var financialGoal = await _repository.GetByIdAsync(request.Id);
 

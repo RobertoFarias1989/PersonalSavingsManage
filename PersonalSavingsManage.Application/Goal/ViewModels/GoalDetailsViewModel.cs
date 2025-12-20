@@ -2,9 +2,9 @@
 
 namespace PersonalSavingsManage.Application.FinancialGoal.ViewModels;
 
-public class FinancialGoalDetailsViewModel
+public class GoalDetailsViewModel
 {
-    public FinancialGoalDetailsViewModel(string id,
+    public GoalDetailsViewModel(string id,
         string title,
         decimal targetAmount,
         DateTime deadline,

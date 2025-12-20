@@ -19,7 +19,7 @@ public class UserDetailsViewModel
         DateTime createdAt,
         DateTime? updatedAt,
         List<TransactionViewModel> transactions,
-        List<FinancialGoalViewModel> financialGoals)
+        List<GoalViewModel> financialGoals)
     {
         Id = id;
         Street = street;
@@ -52,5 +52,5 @@ public class UserDetailsViewModel
     public DateTime CreatedAt { get; private set; }
     public DateTime? UpdatedAt { get; private set; }
     public List<TransactionViewModel> Transactions { get; private set; }
-    public List<FinancialGoalViewModel>  FinancialGoals { get; private set; }
+    public List<GoalViewModel>  FinancialGoals { get; private set; }
 }

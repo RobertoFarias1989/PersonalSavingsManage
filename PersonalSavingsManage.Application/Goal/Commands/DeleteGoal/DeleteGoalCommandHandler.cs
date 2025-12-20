@@ -3,16 +3,16 @@ using PersonalSavingsManage.Core.Repositories;
 
 namespace PersonalSavingsManage.Application.FinancialGoal.Commands.DeleteFinancialGoal;
 
-public class DeleteFinancialGoalCommandHandler : IRequestHandler<DeleteFinancialGoalCommand, Unit>
+public class DeleteGoalCommandHandler : IRequestHandler<DeleteGoalCommand, Unit>
 {
-    private readonly IFinancialGoalRepository _repository;
+    private readonly IGoalRepository _repository;
 
-    public DeleteFinancialGoalCommandHandler(IFinancialGoalRepository repository)
+    public DeleteGoalCommandHandler(IGoalRepository repository)
     {
         _repository = repository;
     }
 
-    public async Task<Unit> Handle(DeleteFinancialGoalCommand request, CancellationToken cancellationToken)
+    public async Task<Unit> Handle(DeleteGoalCommand request, CancellationToken cancellationToken)
     {
         var financialGoal = await _repository.GetByIdAsync(request.Id);
         

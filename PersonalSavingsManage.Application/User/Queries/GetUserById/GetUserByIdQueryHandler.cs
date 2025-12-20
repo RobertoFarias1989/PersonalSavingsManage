@@ -20,7 +20,7 @@ public class GetUserByIdQueryHandler : IRequestHandler<GetUserByIdQuery, UserDet
         var user = await _repository.GetByIdAsync(request.Id);
 
         var financialGoals = user.Goals
-            .Select(g => new FinancialGoalViewModel(
+            .Select(g => new GoalViewModel(
                 g.Id,
                 g.Title,
                 g.TargetAmount,

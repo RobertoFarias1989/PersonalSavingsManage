@@ -1,12 +1,11 @@
 ﻿using FluentValidation;
 using PersonalSavingsManage.Application.FinancialGoal.Commands.UpdateFinancialGoal;
-using PersonalSavingsManage.Core.Enums;
 
 namespace PersonalSavingsManage.Application.FinancialGoal.Validators;
 
-public class UpdateFinancialGoalCommandValidator : AbstractValidator<UpdateFinancialGoalCommand>
+public class UpdateGoalCommandValidator : AbstractValidator<UpdateGoalCommand>
 {
-    public UpdateFinancialGoalCommandValidator()
+    public UpdateGoalCommandValidator()
     {
         RuleFor(fg => fg.Title)
            .NotEmpty()

@@ -3,9 +3,9 @@ using PersonalSavingsManage.Application.FinancialGoal.ViewModels;
 
 namespace PersonalSavingsManage.Application.FinancialGoal.Queries.GetFinacialGoalById;
 
-public class GetFinacialGoalByIdQuery : IRequest<FinancialGoalDetailsViewModel>
+public class GetGoalByIdQuery : IRequest<GoalDetailsViewModel>
 {
-    public GetFinacialGoalByIdQuery(string id)
+    public GetGoalByIdQuery(string id)
     {
         Id = id;
     }

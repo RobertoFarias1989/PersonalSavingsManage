@@ -2,7 +2,7 @@
 
 namespace PersonalSavingsManage.Application.FinancialGoal.Commands.UpdateFinancialGoal;
 
-public class UpdateFinancialGoalCommand : IRequest<Unit>
+public class UpdateGoalCommand : IRequest<Unit>
 {
 
     public string Id { get;  set; } = string.Empty;

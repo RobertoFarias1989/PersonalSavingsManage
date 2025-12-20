@@ -4,21 +4,21 @@ using PersonalSavingsManage.Core.Repositories;
 
 namespace PersonalSavingsManage.Application.FinancialGoal.Queries.GetAllFinacialGoals;
 
-public class GetAllFinacialGoalsQueryHandler : IRequestHandler<GetAllFinacialGoalsQuery, List<FinancialGoalViewModel>>
+public class GetAllGoalsQueryHandler : IRequestHandler<GetAllGoalsQuery, List<GoalViewModel>>
 {
-    private readonly IFinancialGoalRepository _repository;
+    private readonly IGoalRepository _repository;
 
-    public GetAllFinacialGoalsQueryHandler(IFinancialGoalRepository repository)
+    public GetAllGoalsQueryHandler(IGoalRepository repository)
     {
         _repository = repository;
     }
 
-    public async Task<List<FinancialGoalViewModel>> Handle(GetAllFinacialGoalsQuery request, CancellationToken cancellationToken)
+    public async Task<List<GoalViewModel>> Handle(GetAllGoalsQuery request, CancellationToken cancellationToken)
     {
         var financialGoals = await _repository.GetAllAsync();
 
         var financialGoalsViewModel = financialGoals
-            .Select(fg => new FinancialGoalViewModel(
+            .Select(fg => new GoalViewModel(
                 fg.Id,
                 fg.Title,
                 fg.TargetAmount,

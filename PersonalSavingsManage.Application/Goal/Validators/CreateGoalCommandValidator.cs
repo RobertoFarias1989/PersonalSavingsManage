@@ -4,9 +4,9 @@ using PersonalSavingsManage.Core.Enums;
 
 namespace PersonalSavingsManage.Application.FinancialGoal.Validators;
 
-public class CreateFinancialGoalCommandValidator : AbstractValidator<CreateFinancialGoalCommand>
+public class CreateGoalCommandValidator : AbstractValidator<CreateGoalCommand>
 {
-    public CreateFinancialGoalCommandValidator()
+    public CreateGoalCommandValidator()
     {
         RuleFor(fg => fg.Title)
             .NotEmpty()
@@ -34,7 +34,7 @@ public class CreateFinancialGoalCommandValidator : AbstractValidator<CreateFinan
                .WithMessage("Status's field mustn't be empty.")
             .NotNull()
                .WithMessage("Status's field mustn't be null.")
-            .IsEnumName(typeof(FinancialGoalStatusEnum))
+            .IsEnumName(typeof(GoalStatusEnum))
              .WithMessage("Status must match with one of these:InProgress,Complete,Cancelled,OnHold");
     }
 }
