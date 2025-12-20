@@ -1,34 +1,27 @@
-﻿using MongoDB.Driver;
-using PersonalSavingsManage.Core.Entities;
+﻿using PersonalSavingsManage.Core.Entities;
 using PersonalSavingsManage.Core.Repositories;
 
 namespace PersonalSavingsManage.Infrastructure.Persistence.Repositories;
 
 public class GoalRepository : IGoalRepository
 {
-    private readonly IMongoCollection<Goal> _collection;
-    public GoalRepository(IMongoDatabase mongoDatabase)
+    public Task AddAsync(Goal goal)
     {
-        _collection = mongoDatabase.GetCollection<Goal>("financialgoals");
+        throw new NotImplementedException();
     }
 
-    public async Task<List<Goal>> GetAllAsync()
+    public Task<List<Goal>> GetAllAsync()
     {
-       return await _collection.Find(fg => true).ToListAsync();
+        throw new NotImplementedException();
     }
 
-    public async Task<Goal> GetByIdAsync(string id)
+    public Task<Goal> GetByIdAsync(string id)
     {
-        return await _collection.Find(fg => fg.Id == id).SingleOrDefaultAsync();
+        throw new NotImplementedException();
     }
 
-    public async Task AddAsync(Goal goal)
+    public Task UpdateAsync(Goal goal)
     {
-        await _collection.InsertOneAsync(goal);
-    }
-
-    public async Task UpdateAsync(Goal goal)
-    {
-        await _collection.ReplaceOneAsync(fg => fg.Id == goal.Id, goal);    
+        throw new NotImplementedException();
     }
 }

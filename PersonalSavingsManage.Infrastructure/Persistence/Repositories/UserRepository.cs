@@ -1,39 +1,32 @@
-﻿using MongoDB.Driver;
-using PersonalSavingsManage.Core.Entities;
+﻿using PersonalSavingsManage.Core.Entities;
 using PersonalSavingsManage.Core.Repositories;
 
 namespace PersonalSavingsManage.Infrastructure.Persistence.Repositories;
 
 public class UserRepository : IUserRepository
 {
-    private readonly IMongoCollection<User> _collection;
-    public UserRepository(IMongoDatabase mongoDatabase)
+    public Task Addasync(User user)
     {
-        _collection = mongoDatabase.GetCollection<User>("users");
-    }
-    public async Task<List<User>> GetAllAsync()
-    {
-        return await _collection.Find(u => true).ToListAsync();
+        throw new NotImplementedException();
     }
 
-    public async Task<User> GetByIdAsync(string id)
+    public Task<List<User>> GetAllAsync()
     {
-        return await _collection.Find(u => u.Id == id).SingleOrDefaultAsync();
+        throw new NotImplementedException();
     }
 
-    public async Task<User> GetUserByEmailAndPasswordAsync(string email, string passwordHash)
+    public Task<User> GetByIdAsync(string id)
     {
-        return await _collection
-            .Find(u => u.Email.EmailAddress == email && u.Password.PasswordValue == passwordHash)
-            .SingleOrDefaultAsync();
-    }
-    public async Task Addasync(User user)
-    {
-        await _collection.InsertOneAsync(user);
+        throw new NotImplementedException();
     }
 
-    public async Task UpdateAsync(User user)
+    public Task<User> GetUserByEmailAndPasswordAsync(string email, string passwordHash)
     {
-        await _collection.ReplaceOneAsync(u => u.Id == user.Id, user);
+        throw new NotImplementedException();
+    }
+
+    public Task UpdateAsync(User user)
+    {
+        throw new NotImplementedException();
     }
 }

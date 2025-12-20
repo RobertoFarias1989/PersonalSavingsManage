@@ -1,33 +1,27 @@
-﻿using MongoDB.Driver;
-using PersonalSavingsManage.Core.Entities;
+﻿using PersonalSavingsManage.Core.Entities;
 using PersonalSavingsManage.Core.Repositories;
 
 namespace PersonalSavingsManage.Infrastructure.Persistence.Repositories;
 
 public class TransactionRepository : ITransactionRepository
 {
-    private readonly IMongoCollection<Transaction> _collection;
-    public TransactionRepository(IMongoDatabase mongoDatabase)
+    public Task AddAsync(Transaction transaction)
     {
-        _collection = mongoDatabase.GetCollection<Transaction>("transactions");
-    }
-    public async Task<List<Transaction>> GetAllAsync()
-    {
-        return await _collection.Find(t => true).ToListAsync();
+        throw new NotImplementedException();
     }
 
-    public async Task<Transaction> GetByIdAsync(string id)
+    public Task<List<Transaction>> GetAllAsync()
     {
-        return await _collection.Find(t => t.Id == id).SingleOrDefaultAsync();
+        throw new NotImplementedException();
     }
 
-    public async Task AddAsync(Transaction transaction)
+    public Task<Transaction> GetByIdAsync(string id)
     {
-        await _collection.InsertOneAsync(transaction);
+        throw new NotImplementedException();
     }
 
-    public async Task UpdateAsync(Transaction transaction)
+    public Task UpdateAsync(Transaction transaction)
     {
-        await _collection.ReplaceOneAsync(t => t.Id == t.Id, transaction);
+        throw new NotImplementedException();
     }
 }
