@@ -15,13 +15,13 @@ public class CreateTransactionToGoalCommandValidator : AbstractValidator<CreateT
                .WithMessage("Amount's field mustn't be null.")
            .PrecisionScale(100, 2, true);
 
-        RuleFor(t => t.Type)
-           .NotEmpty()
-              .WithMessage("Type's field mustn't be empty.")
-           .NotNull()
-              .WithMessage("Type's field mustn't be null.")
-           .IsEnumName(typeof(TransactionTypeEnum))
-              .WithMessage("Type must match with one of these:Deposit,Withdraw");
+        //RuleFor(t => t.Type)
+        //   .NotEmpty()
+        //      .WithMessage("Type's field mustn't be empty.")
+        //   .NotNull()
+        //      .WithMessage("Type's field mustn't be null.")
+        //   .IsEnumName(typeof(TransactionTypeEnum))
+        //      .WithMessage("Type must match with one of these:Deposit,Withdraw");
 
         RuleFor(t => t.UserId)
            .NotEmpty()

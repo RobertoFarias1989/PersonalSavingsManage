@@ -7,12 +7,10 @@ namespace PersonalSavingsManage.Application.FinancialGoal.Commands.CreateTransac
 
 public class CreateTransactionToGoalCommandHandler : IRequestHandler<CreateTransactionToGoalCommand, ResultViewModel<Unit>>
 {
-    readonly ITransactionRepository _repository;
     readonly IUserRepository _userRepository;
 
-    public CreateTransactionToGoalCommandHandler(ITransactionRepository repository, IUserRepository userRepository)
+    public CreateTransactionToGoalCommandHandler(IUserRepository userRepository)
     {
-        _repository = repository;
         _userRepository = userRepository;
     }
 
@@ -28,11 +26,15 @@ public class CreateTransactionToGoalCommandHandler : IRequestHandler<CreateTrans
         if (goal == null || goal.IsDeleted == true)
             return ResultViewModel<Unit>.Error("Goal was not found or already deleted.");
 
-        var transaction = new Core.Entities.Transaction(
-            request.Amount,
-            (TransactionTypeEnum)Enum.Parse(typeof(TransactionTypeEnum),request.Type));
+        //var transaction = new Core.Entities.Transaction(
+        //    request.Amount,
+        //    (TransactionTypeEnum)Enum.Parse(typeof(TransactionTypeEnum),request.Type));
 
-        await _repository.AddAsync(transaction);
+        var transaction = new Core.Entities.Transaction(
+           request.Amount,
+           request.Type);
+
+        await _userRepository.AddTransactionToGoalAsync(request.UserId, request.GoalId, transaction);
 
         return ResultViewModel<Unit>.Success(Unit.Value);
     }
