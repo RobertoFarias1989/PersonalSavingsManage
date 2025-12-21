@@ -15,18 +15,11 @@ public class GetAllGoalsQueryHandler : IRequestHandler<GetAllGoalsQuery, List<Go
 
     public async Task<List<GoalViewModel>> Handle(GetAllGoalsQuery request, CancellationToken cancellationToken)
     {
-        var financialGoals = await _repository.GetAllAsync();
+        var goals = await _repository.GetAllAsync();
 
-        var financialGoalsViewModel = financialGoals
-            .Select(fg => new GoalViewModel(
-                fg.Id,
-                fg.Title,
-                fg.TargetAmount,
-                fg.Deadline,
-                fg.IdealMonthlyContribution,
-                fg.Status.ToString(),
-                fg.IdUser)).ToList();
+        var goalsViewModel = goals
+            .Select(GoalViewModel.FromEntity).ToList();
 
-        return financialGoalsViewModel;
+        return goalsViewModel;
     }
 }

@@ -21,4 +21,8 @@ public class GoalViewModel
     public decimal IdealMonthlyContribution { get; private set; }
     public string Status { get; private set; }
     public int IdUser { get; private set; }
+
+    public static GoalViewModel FromEntity(Core.Entities.Goal entity)
+    => new GoalViewModel(entity.Id, entity.Title, entity.TargetAmount, entity.Deadline, entity.IdealMonthlyContribution,
+        entity.Status.ToString(), entity.IdUser);
 }

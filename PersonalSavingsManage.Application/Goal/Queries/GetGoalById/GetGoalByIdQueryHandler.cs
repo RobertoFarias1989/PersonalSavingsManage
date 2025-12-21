@@ -16,30 +16,10 @@ public class GetGoalByIdQueryHandler : IRequestHandler<GetGoalByIdQuery, GoalDet
 
     public async Task<GoalDetailsViewModel> Handle(GetGoalByIdQuery request, CancellationToken cancellationToken)
     {
-        var financialGoal = await _repository.GetByIdAsync(request.Id);
+        var goal = await _repository.GetByIdAsync(request.Id);
 
-        var transactions = financialGoal.Transactions
-            .Select(t => new TransactionViewModel(
-                t.Id,
-                t.Amount,
-                t.Type.ToString(),
-                t.TransactionDate,
-                t.IdUser,
-                t.IdGoal)).ToList();
+        var goalDetailsViewModel = GoalDetailsViewModel.FromEntity(goal);
 
-        var financialGoalDetailsViewModel = new GoalDetailsViewModel(
-            financialGoal.Id,
-            financialGoal.Title,
-            financialGoal.TargetAmount,
-            financialGoal.Deadline,
-            financialGoal.IdealMonthlyContribution,
-            financialGoal.Status.ToString(),
-            financialGoal.IdUser,
-            financialGoal.IsDeleted,
-            financialGoal.CreatedAt,
-            financialGoal.UpdatedAt,
-            transactions);
-
-        return financialGoalDetailsViewModel;
+        return goalDetailsViewModel;
     }
 }

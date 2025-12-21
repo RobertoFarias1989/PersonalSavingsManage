@@ -1,6 +1,4 @@
 ﻿using MediatR;
-using PersonalSavingsManage.Application.FinancialGoal.ViewModels;
-using PersonalSavingsManage.Application.Transaction.ViewModel;
 using PersonalSavingsManage.Application.User.ViewModels;
 using PersonalSavingsManage.Core.Repositories;
 
@@ -19,41 +17,7 @@ public class GetUserByIdQueryHandler : IRequestHandler<GetUserByIdQuery, UserDet
     {
         var user = await _repository.GetByIdAsync(request.Id);
 
-        var financialGoals = user.Goals
-            .Select(g => new GoalViewModel(
-                g.Id,
-                g.Title,
-                g.TargetAmount,
-                g.Deadline,
-                g.IdealMonthlyContribution,
-                g.Status.ToString(),
-                g.IdUser)).ToList();
-
-        var transactions = user.Transactions
-            .Select(t => new TransactionViewModel(
-                t.Id,
-                t.Amount,
-                t.Type.ToString(),
-                t.TransactionDate,
-                t.IdUser,
-                t.IdGoal)).ToList();
-
-        var userDetailsViewModel = new UserDetailsViewModel(
-               user.Id,
-               user.Address.Street,
-               user.Address.City,
-               user.Address.State,
-               user.Address.PostalCode,
-               user.Address.Country,           
-               user.Email.EmailAddress,
-               user.Name.FullName,
-               user.Password.PasswordValue,
-               user.Role,
-               user.IsDeleted,
-               user.CreatedAt,
-               user.UpdatedAt,
-               transactions,
-               financialGoals);
+        var userDetailsViewModel = UserDetailsViewModel.FromEntity(user);
 
         return userDetailsViewModel;
 

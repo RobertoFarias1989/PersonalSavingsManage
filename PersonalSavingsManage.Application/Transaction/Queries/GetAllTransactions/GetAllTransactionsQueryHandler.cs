@@ -18,13 +18,7 @@ public class GetAllTransactionsQueryHandler : IRequestHandler<GetAllTransactions
         var transactions = await _repository.GetAllAsync();
 
         var transactionsViewModel = transactions
-            .Select(t => new TransactionViewModel(
-                t.Id,
-                t.Amount,
-                t.Type.ToString(),
-                t.TransactionDate,
-                t.IdUser,
-                t.IdGoal)).ToList();
+            .Select(TransactionViewModel.FromEntity).ToList();
 
         return transactionsViewModel;
     }

@@ -18,8 +18,8 @@ public class UserDetailsViewModel
         bool isDeleted,
         DateTime createdAt,
         DateTime? updatedAt,
-        List<TransactionViewModel> transactions,
-        List<GoalViewModel> financialGoals)
+        List<TransactionDetailsViewModel> transactions,
+        List<GoalDetailsViewModel> goals)
     {
         Id = id;
         Street = street;
@@ -35,7 +35,7 @@ public class UserDetailsViewModel
         CreatedAt = createdAt;
         UpdatedAt = updatedAt;
         Transactions = transactions;
-        FinancialGoals = financialGoals;
+        Goals = goals;
     }
 
     public int Id { get; private set; }
@@ -51,6 +51,22 @@ public class UserDetailsViewModel
     public bool IsDeleted { get; private set; }
     public DateTime CreatedAt { get; private set; }
     public DateTime? UpdatedAt { get; private set; }
-    public List<TransactionViewModel> Transactions { get; private set; }
-    public List<GoalViewModel>  FinancialGoals { get; private set; }
+    public List<TransactionDetailsViewModel> Transactions { get; private set; }
+    public List<GoalDetailsViewModel>  Goals { get; private set; }
+
+    public static UserDetailsViewModel FromEntity(Core.Entities.User entity)
+    {
+        var transactions = entity.Transactions?
+             .Select(TransactionDetailsViewModel.FromEntity)
+             .ToList() ?? new List<TransactionDetailsViewModel>();
+
+        var goals = entity.Goals?
+            .Select(GoalDetailsViewModel.FromEntity)
+            .ToList() ?? new List<GoalDetailsViewModel>();
+
+        return new UserDetailsViewModel(entity.Id, entity.Address.Street, entity.Address.City, entity.Address.State,
+            entity.Address.PostalCode, entity.Address.Country, entity.Email.EmailAddress, entity.Name.FullName,
+            entity.Password.PasswordValue, entity.Role.ToString(), entity.IsDeleted, entity.CreatedAt,
+            entity.UpdatedAt, transactions, goals);
+    }
 }

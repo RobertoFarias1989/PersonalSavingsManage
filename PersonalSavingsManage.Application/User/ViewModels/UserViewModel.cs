@@ -31,4 +31,11 @@ public class UserViewModel
     public string FullName { get; private set; }
     public string PasswordValue { get; private set; }
     public string Role { get; private set; }
+
+    public static UserViewModel FromEntity(Core.Entities.User entity)
+    {
+        return new UserViewModel(entity.Id, entity.Address.Street, entity.Address.City, entity.Address.State,
+            entity.Address.PostalCode, entity.Address.Country, entity.Email.EmailAddress, entity.Name.FullName,
+            entity.Password.PasswordValue, entity.Role);
+    }
 }

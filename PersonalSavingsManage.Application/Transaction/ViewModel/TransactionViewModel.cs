@@ -18,4 +18,10 @@ public class TransactionViewModel
     public DateTime TransactionDate { get; private set; }
     public int IdUser { get; private set; }
     public int IdGoal { get; private set; }
+
+    public static TransactionViewModel FromEntity(Core.Entities.Transaction entity)
+    {
+        return new TransactionViewModel(entity.Id, entity.Amount, entity.Type.ToString(), entity.TransactionDate,
+            entity.IdUser, entity.IdGoal);
+    }
 }

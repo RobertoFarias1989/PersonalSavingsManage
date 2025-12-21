@@ -1,5 +1,4 @@
 ﻿using MediatR;
-using Microsoft.AspNetCore.Identity;
 using PersonalSavingsManage.Core.Repositories;
 using PersonalSavingsManage.Core.ValueObjects;
 
