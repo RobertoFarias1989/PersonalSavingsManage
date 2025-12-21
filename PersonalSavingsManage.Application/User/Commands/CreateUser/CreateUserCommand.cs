@@ -2,7 +2,7 @@
 
 namespace PersonalSavingsManage.Application.User.Commands.CreateUser;
 
-public class CreateUserCommand : IRequest<string>
+public class CreateUserCommand : IRequest<int>
 {
     public string? Street { get; set; }
     public string? City { get; set; }

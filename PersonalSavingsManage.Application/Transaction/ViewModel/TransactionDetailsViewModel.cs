@@ -2,7 +2,7 @@
 
 public class TransactionDetailsViewModel
 {
-    public TransactionDetailsViewModel(string id,
+    public TransactionDetailsViewModel(int id,
         decimal amount, string type, DateTime transactionDate, bool isDeleted, DateTime createdAt, DateTime? updatedAt)
     {
         Id = id;
@@ -14,7 +14,7 @@ public class TransactionDetailsViewModel
         UpdatedAt = updatedAt;
     }
 
-    public string Id { get; private set; }
+    public int Id { get; private set; }
     public decimal Amount { get; private set; }
     public string Type { get; private set; }
     public DateTime TransactionDate { get; private set; }

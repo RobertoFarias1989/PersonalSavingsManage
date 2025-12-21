@@ -5,7 +5,7 @@ using PersonalSavingsManage.Core.ValueObjects;
 
 namespace PersonalSavingsManage.Application.User.Commands.CreateUser;
 
-public class CreateUserCommandHandler : IRequestHandler<CreateUserCommand, string>
+public class CreateUserCommandHandler : IRequestHandler<CreateUserCommand, int>
 {
     private readonly IUserRepository _repository;
 
@@ -14,7 +14,7 @@ public class CreateUserCommandHandler : IRequestHandler<CreateUserCommand, strin
         _repository = repository;
     }
 
-    public async Task<string> Handle(CreateUserCommand request, CancellationToken cancellationToken)
+    public async Task<int> Handle(CreateUserCommand request, CancellationToken cancellationToken)
     {
         var user = new Core.Entities.User(
             new Address(request.Street!, request.City!, request.State!, request.PostalCode!, request.Country!),

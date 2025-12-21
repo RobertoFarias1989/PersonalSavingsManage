@@ -2,7 +2,7 @@
 
 public class UserViewModel
 {
-    public UserViewModel(string id,
+    public UserViewModel(int id,
         string street,
         string city,
         string state,
@@ -21,7 +21,7 @@ public class UserViewModel
         Role = role;
     }
 
-    public string Id { get; private set; }
+    public int Id { get; private set; }
     public string Street { get; private set; }
     public string City { get; private set; }
     public string State { get; private set; }

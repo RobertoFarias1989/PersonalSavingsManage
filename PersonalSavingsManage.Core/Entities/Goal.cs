@@ -7,12 +7,13 @@ public class Goal : BaseEntity
     public Goal(string title,
         decimal targetAmount,
         DateTime deadline,
-        GoalStatusEnum status) : base()
+        GoalStatusEnum status, int idUser) : base()
     {
         Title = title;
         TargetAmount = targetAmount;
         Deadline = deadline;        
         Status = status;
+        IdUser = idUser;
 
         Transactions = new List<Transaction>();
     }
@@ -22,6 +23,8 @@ public class Goal : BaseEntity
     public DateTime Deadline { get; private set; }
     public decimal IdealMonthlyContribution { get; private set; }
     public GoalStatusEnum Status { get; private set; }
+    public int IdUser { get; private set; }
+    public User User { get; private set; }
     public List<Transaction> Transactions { get; private set; }
 
     public void Update(string title,

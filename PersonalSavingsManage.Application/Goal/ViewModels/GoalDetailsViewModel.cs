@@ -4,12 +4,13 @@ namespace PersonalSavingsManage.Application.FinancialGoal.ViewModels;
 
 public class GoalDetailsViewModel
 {
-    public GoalDetailsViewModel(string id,
+    public GoalDetailsViewModel(int id,
         string title,
         decimal targetAmount,
         DateTime deadline,
         decimal idealMonthlyContribution,
         string status,
+        int idUser,
         bool isDeleted,
         DateTime createdAt,
         DateTime? updatedAt,
@@ -21,18 +22,20 @@ public class GoalDetailsViewModel
         Deadline = deadline;
         IdealMonthlyContribution = idealMonthlyContribution;
         Status = status;
+        IdUser = idUser;
         IsDeleted = isDeleted;
         CreatedAt = createdAt;
         UpdatedAt = updatedAt;
         Transactions = transactions;
     }
 
-    public string Id { get; private set; }
+    public int Id { get; private set; }
     public string Title { get; private set; }
     public decimal TargetAmount { get; private set; }
     public DateTime Deadline { get; private set; }
     public decimal IdealMonthlyContribution { get; private set; }
     public string Status { get; private set; }
+    public int IdUser { get; private set; }
     public bool IsDeleted { get; private set; }
     public DateTime CreatedAt { get; private set; }
     public DateTime? UpdatedAt { get; private set; }

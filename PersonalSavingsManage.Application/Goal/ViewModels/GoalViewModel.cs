@@ -2,8 +2,8 @@
 
 public class GoalViewModel
 {
-    public GoalViewModel(string id,
-        string title, decimal targetAmount, DateTime deadline, decimal idealMonthlyContribution, string status)
+    public GoalViewModel(int id,
+        string title, decimal targetAmount, DateTime deadline, decimal idealMonthlyContribution, string status, int idUser)
     {
         Id = id;
         Title = title;
@@ -11,12 +11,14 @@ public class GoalViewModel
         Deadline = deadline;
         IdealMonthlyContribution = idealMonthlyContribution;
         Status = status;
+        IdUser = idUser;
     }
 
-    public string Id { get; private set; }
+    public int Id { get; private set; }
     public string Title { get; private set; }
     public decimal TargetAmount { get; private set; }
     public DateTime Deadline { get; private set; }
     public decimal IdealMonthlyContribution { get; private set; }
     public string Status { get; private set; }
+    public int IdUser { get; private set; }
 }

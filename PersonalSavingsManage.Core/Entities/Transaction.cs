@@ -4,10 +4,12 @@ namespace PersonalSavingsManage.Core.Entities;
 
 public class Transaction : BaseEntity
 {
-    public Transaction(decimal amount, TransactionTypeEnum type) : base()
+    public Transaction(decimal amount, TransactionTypeEnum type, int idUser, int idGoal) : base()
     {
         Amount = amount;
         Type = type;
+        IdUser = idUser;
+        IdGoal = idGoal;
 
         TransactionDate = DateTime.Now;
     }
@@ -15,6 +17,10 @@ public class Transaction : BaseEntity
     public decimal Amount { get; private set; }
     public TransactionTypeEnum Type { get; private set; }
     public DateTime TransactionDate { get; private set; }
+    public int IdUser { get; private set; }
+    public User User { get; private set; }
+    public int IdGoal { get; private set; }
+    public Goal Goal { get; private set; }
 
     public void Update(decimal amount, TransactionTypeEnum type)
     {

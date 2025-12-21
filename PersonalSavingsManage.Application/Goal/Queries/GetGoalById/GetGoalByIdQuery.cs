@@ -5,10 +5,10 @@ namespace PersonalSavingsManage.Application.FinancialGoal.Queries.GetFinacialGoa
 
 public class GetGoalByIdQuery : IRequest<GoalDetailsViewModel>
 {
-    public GetGoalByIdQuery(string id)
+    public GetGoalByIdQuery(int id)
     {
         Id = id;
     }
 
-    public string Id { get; private set; }
+    public int Id { get; private set; }
 }

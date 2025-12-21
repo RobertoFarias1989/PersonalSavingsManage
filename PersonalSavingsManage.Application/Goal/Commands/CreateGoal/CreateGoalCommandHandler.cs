@@ -4,7 +4,7 @@ using PersonalSavingsManage.Core.Repositories;
 
 namespace PersonalSavingsManage.Application.FinancialGoal.Commands.CreateFinancialGoal;
 
-public class CreateGoalCommandHandler : IRequestHandler<CreateGoalCommand, string>
+public class CreateGoalCommandHandler : IRequestHandler<CreateGoalCommand, int>
 {
     private readonly IGoalRepository _repository;
 
@@ -13,13 +13,14 @@ public class CreateGoalCommandHandler : IRequestHandler<CreateGoalCommand, strin
         _repository = repository;
     }
 
-    public async Task<string> Handle(CreateGoalCommand request, CancellationToken cancellationToken)
+    public async Task<int> Handle(CreateGoalCommand request, CancellationToken cancellationToken)
     {
         var financialGoal = new Core.Entities.Goal(
             request.Title,
             request.TargetAmount,
             request.Deadline,           
-            (GoalStatusEnum)Enum.Parse(typeof(GoalStatusEnum),request.Status));
+            (GoalStatusEnum)Enum.Parse(typeof(GoalStatusEnum),request.Status),
+            request.IdUser);
 
         financialGoal.CalculateIdealMonthlyContribution(request.Deadline, request.TargetAmount);
 

@@ -2,7 +2,7 @@
 
 public class TransactionViewModel
 {
-    public TransactionViewModel(string id, decimal amount, string type, DateTime transactionDate)
+    public TransactionViewModel(int id, decimal amount, string type, DateTime transactionDate)
     {
         Id = id;
         Amount = amount;
@@ -10,7 +10,7 @@ public class TransactionViewModel
         TransactionDate = transactionDate;
     }
 
-    public string Id { get; private set; }
+    public int Id { get; private set; }
     public decimal Amount { get; private set; }
     public string Type { get; private set; }
     public DateTime TransactionDate { get; private set; }
