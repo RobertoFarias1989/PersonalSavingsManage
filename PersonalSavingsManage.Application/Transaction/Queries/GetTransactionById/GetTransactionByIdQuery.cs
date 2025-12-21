@@ -5,10 +5,10 @@ namespace PersonalSavingsManage.Application.Transaction.Queries.GetTransactionBy
 
 public class GetTransactionByIdQuery : IRequest<TransactionDetailsViewModel>
 {
-    public GetTransactionByIdQuery(string id)
+    public GetTransactionByIdQuery(int id)
     {
         Id = id;
     }
 
-    public string Id { get; private set; }
+    public int Id { get; private set; }
 }

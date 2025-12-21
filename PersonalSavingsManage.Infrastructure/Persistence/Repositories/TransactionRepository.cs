@@ -15,7 +15,7 @@ public class TransactionRepository : ITransactionRepository
         throw new NotImplementedException();
     }
 
-    public Task<Transaction> GetByIdAsync(string id)
+    public Task<Transaction> GetByIdAsync(int id)
     {
         throw new NotImplementedException();
     }

@@ -5,10 +5,10 @@ namespace PersonalSavingsManage.Application.User.Queries.GetUserById;
 
 public class GetUserByIdQuery : IRequest<UserDetailsViewModel>
 {
-    public GetUserByIdQuery(string id)
+    public GetUserByIdQuery(int id)
     {
         Id = id;
     }
 
-    public string Id { get; private set; }
+    public int Id { get; private set; }
 }

@@ -15,7 +15,7 @@ public class GoalRepository : IGoalRepository
         throw new NotImplementedException();
     }
 
-    public Task<Goal> GetByIdAsync(string id)
+    public Task<Goal> GetByIdAsync(int id)
     {
         throw new NotImplementedException();
     }

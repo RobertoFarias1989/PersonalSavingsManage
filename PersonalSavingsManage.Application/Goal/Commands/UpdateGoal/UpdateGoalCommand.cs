@@ -5,7 +5,7 @@ namespace PersonalSavingsManage.Application.FinancialGoal.Commands.UpdateFinanci
 public class UpdateGoalCommand : IRequest<Unit>
 {
 
-    public string Id { get;  set; } = string.Empty;
+    public int Id { get;  set; }
     public string Title { get; set; } = string.Empty;
     public decimal TargetAmount { get; set; }
     public DateTime Deadline { get; set; }

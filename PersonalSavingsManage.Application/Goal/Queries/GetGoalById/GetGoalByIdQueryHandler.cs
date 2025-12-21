@@ -23,7 +23,9 @@ public class GetGoalByIdQueryHandler : IRequestHandler<GetGoalByIdQuery, GoalDet
                 t.Id,
                 t.Amount,
                 t.Type.ToString(),
-                t.TransactionDate)).ToList();
+                t.TransactionDate,
+                t.IdUser,
+                t.IdGoal)).ToList();
 
         var financialGoalDetailsViewModel = new GoalDetailsViewModel(
             financialGoal.Id,
@@ -32,6 +34,7 @@ public class GetGoalByIdQueryHandler : IRequestHandler<GetGoalByIdQuery, GoalDet
             financialGoal.Deadline,
             financialGoal.IdealMonthlyContribution,
             financialGoal.Status.ToString(),
+            financialGoal.IdUser,
             financialGoal.IsDeleted,
             financialGoal.CreatedAt,
             financialGoal.UpdatedAt,

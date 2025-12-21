@@ -4,7 +4,7 @@ namespace PersonalSavingsManage.Application.Transaction.Commands.UpdateTransacti
 
 public class UpdateTransactionCommand : IRequest<Unit>
 {
-    public string Id { get; private set; }
+    public int Id { get; private set; }
     public decimal Amount { get; set; }
     public string Type { get; set; } = string.Empty;
 }

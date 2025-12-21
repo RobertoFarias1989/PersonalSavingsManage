@@ -26,14 +26,17 @@ public class GetUserByIdQueryHandler : IRequestHandler<GetUserByIdQuery, UserDet
                 g.TargetAmount,
                 g.Deadline,
                 g.IdealMonthlyContribution,
-                g.Status.ToString())).ToList();
+                g.Status.ToString(),
+                g.IdUser)).ToList();
 
         var transactions = user.Transactions
             .Select(t => new TransactionViewModel(
                 t.Id,
                 t.Amount,
                 t.Type.ToString(),
-                t.TransactionDate)).ToList();
+                t.TransactionDate,
+                t.IdUser,
+                t.IdGoal)).ToList();
 
         var userDetailsViewModel = new UserDetailsViewModel(
                user.Id,

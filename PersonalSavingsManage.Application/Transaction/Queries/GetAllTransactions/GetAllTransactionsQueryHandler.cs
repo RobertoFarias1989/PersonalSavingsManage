@@ -22,7 +22,9 @@ public class GetAllTransactionsQueryHandler : IRequestHandler<GetAllTransactions
                 t.Id,
                 t.Amount,
                 t.Type.ToString(),
-                t.TransactionDate)).ToList();
+                t.TransactionDate,
+                t.IdUser,
+                t.IdGoal)).ToList();
 
         return transactionsViewModel;
     }

@@ -4,10 +4,10 @@ namespace PersonalSavingsManage.Application.FinancialGoal.Commands.DeleteFinanci
 
 public class DeleteGoalCommand : IRequest<Unit>
 {
-    public DeleteGoalCommand(string id)
+    public DeleteGoalCommand(int id)
     {
         Id = id;
     }
 
-    public string Id { get; private set; }
+    public int Id { get; private set; }
 }

@@ -22,6 +22,8 @@ public class GetTransactionByIdQueryHandler : IRequestHandler<GetTransactionById
             transaction.Amount,
             transaction.Type.ToString(),
             transaction.TransactionDate,
+            transaction.IdUser,
+            transaction.IdGoal,
             transaction.IsDeleted,
             transaction.CreatedAt,
             transaction.UpdatedAt);

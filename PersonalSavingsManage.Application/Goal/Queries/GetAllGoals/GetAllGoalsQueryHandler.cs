@@ -24,7 +24,8 @@ public class GetAllGoalsQueryHandler : IRequestHandler<GetAllGoalsQuery, List<Go
                 fg.TargetAmount,
                 fg.Deadline,
                 fg.IdealMonthlyContribution,
-                fg.Status.ToString())).ToList();
+                fg.Status.ToString(),
+                fg.IdUser)).ToList();
 
         return financialGoalsViewModel;
     }

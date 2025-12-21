@@ -4,10 +4,10 @@ namespace PersonalSavingsManage.Application.User.Commands.DeleteUser;
 
 public class DeleteUserCommand : IRequest<Unit>
 {
-    public DeleteUserCommand(string id)
+    public DeleteUserCommand(int id)
     {
         Id = id;
     }
 
-    public string Id { get; private set; }
+    public int Id { get; private set; }
 }
