@@ -1,4 +1,5 @@
 ﻿using PersonalSavingsManage.Core.Enums;
+using PersonalSavingsManage.Core.Models;
 
 namespace PersonalSavingsManage.Core.Entities;
 
@@ -6,11 +7,13 @@ public class Goal : BaseEntity
 {
     public Goal(string title,
         decimal targetAmount,
+        string imageGoal,
         DateTime deadline,
         GoalStatusEnum status, int idUser) : base()
     {
         Title = title;
         TargetAmount = targetAmount;
+        ImageGoal = imageGoal;
         Deadline = deadline;        
         Status = status;
         IdUser = idUser;
@@ -20,6 +23,7 @@ public class Goal : BaseEntity
 
     public string Title { get; private set; }
     public decimal TargetAmount { get; private set; }
+    public string ImageGoal { get; set; }
     public DateTime Deadline { get; private set; }
     public decimal IdealMonthlyContribution { get; private set; }
     public GoalStatusEnum Status { get; private set; }
@@ -38,9 +42,9 @@ public class Goal : BaseEntity
         UpdatedAt = DateTime.Now;
     }
 
-    public override void SetAsDelete()
+    public override ResultViewModel SetAsDelete()
     {
-        if(Status != GoalStatusEnum.Complete)
+        if (Status != GoalStatusEnum.Complete)
         {
             IsDeleted = true;
             Status = GoalStatusEnum.Cancelled;
@@ -48,19 +52,23 @@ public class Goal : BaseEntity
         }
         else
         {
-            throw new Exception("It's not allow delete a FinancialGoal that was already complete.");
+            return ResultViewModel.Error("It's not allow delete a FinancialGoal that was already complete.");
         }
-    }
 
-    //TODO: criar um método para calcular o campo IdealMonthlyContribution
-    //a ideia é ao adicionar um novo registro realizar o cálculo desse campo automaticamente(dividir o TargetAmount pela quantidade de meses tendo por base o DeadLine)
+        return ResultViewModel.Success();
+    }    
 
     public void CalculateIdealMonthlyContribution(DateTime deadline, decimal targetAmount)
     {
-        var monthAmount = deadline.Month - DateTime.Now.Month;
+        var monthAmount = Math.Abs((deadline.Month - DateTime.Now.Month) + 12 * (deadline.Year - DateTime.Now.Year));
 
-        var contribution = targetAmount / monthAmount;
+        var contribution = Math.Round(targetAmount / monthAmount);
 
         IdealMonthlyContribution = contribution;
+    }
+
+    public void UpdateImageGoal(string path)
+    {
+        ImageGoal = path;
     }
 }

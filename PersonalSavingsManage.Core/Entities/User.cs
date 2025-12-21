@@ -33,4 +33,9 @@ public class User : BaseEntity
 
         UpdatedAt = DateTime.Now;
     }
+
+    public void UpdatePassword(Password password)
+    {
+        Password = password;
+    }
 }

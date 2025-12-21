@@ -1,4 +1,6 @@
-﻿namespace PersonalSavingsManage.Core.Entities;
+﻿using PersonalSavingsManage.Core.Models;
+
+namespace PersonalSavingsManage.Core.Entities;
 
 public abstract class BaseEntity
 {
@@ -14,10 +16,12 @@ public abstract class BaseEntity
     public DateTime CreatedAt { get; protected set; }
     public DateTime? UpdatedAt { get; protected set; }
 
-    public virtual void SetAsDelete()
+    public virtual ResultViewModel SetAsDelete()
     {
         IsDeleted = true;
 
         UpdatedAt = DateTime.Now;
+
+        return ResultViewModel.Success();
     }
 }

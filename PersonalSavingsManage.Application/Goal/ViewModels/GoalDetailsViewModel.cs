@@ -7,6 +7,7 @@ public class GoalDetailsViewModel
     public GoalDetailsViewModel(int id,
         string title,
         decimal targetAmount,
+        string imageGoal,
         DateTime deadline,
         decimal idealMonthlyContribution,
         string status,
@@ -32,6 +33,7 @@ public class GoalDetailsViewModel
     public int Id { get; private set; }
     public string Title { get; private set; }
     public decimal TargetAmount { get; private set; }
+    public string ImageGoal { get; private set; }
     public DateTime Deadline { get; private set; }
     public decimal IdealMonthlyContribution { get; private set; }
     public string Status { get; private set; }
@@ -47,7 +49,7 @@ public class GoalDetailsViewModel
             .Select(TransactionDetailsViewModel.FromEntity)
             .ToList() ?? new List<TransactionDetailsViewModel>();
 
-        return new GoalDetailsViewModel(entity.Id, entity.Title, entity.TargetAmount, entity.Deadline,
+        return new GoalDetailsViewModel(entity.Id, entity.Title, entity.TargetAmount, entity.ImageGoal, entity.Deadline,
             entity.IdealMonthlyContribution, entity.Status.ToString(), entity.IdUser, entity.IsDeleted,
             entity.CreatedAt, entity.UpdatedAt, transactions);
     }
