@@ -1,25 +1,26 @@
 ﻿using MediatR;
 using PersonalSavingsManage.Application.Transaction.ViewModel;
+using PersonalSavingsManage.Core.Models;
 using PersonalSavingsManage.Core.Repositories;
 
 namespace PersonalSavingsManage.Application.Transaction.Queries.GetAllTransactions;
 
-public class GetAllTransactionsQueryHandler : IRequestHandler<GetAllTransactionsQuery, List<TransactionViewModel>>
+public class GetAllTransactionsQueryHandler : IRequestHandler<GetAllTransactionsQuery, ResultViewModel<List<TransactionViewModel>>>
 {
-    private readonly ITransactionRepository _repository;
+    private readonly ITransactionRepository _transactionRepository;
 
-    public GetAllTransactionsQueryHandler(ITransactionRepository repository)
+    public GetAllTransactionsQueryHandler(ITransactionRepository transactionRepository)
     {
-        _repository = repository;
+        _transactionRepository = transactionRepository;
     }
 
-    public async Task<List<TransactionViewModel>> Handle(GetAllTransactionsQuery request, CancellationToken cancellationToken)
+    public async Task<ResultViewModel<List<TransactionViewModel>>> Handle(GetAllTransactionsQuery request, CancellationToken cancellationToken)
     {
-        var transactions = await _repository.GetAllAsync();
+        var transactions = await _transactionRepository.GetAllAsync();
 
         var transactionsViewModel = transactions
             .Select(TransactionViewModel.FromEntity).ToList();
 
-        return transactionsViewModel;
+        return ResultViewModel<List<TransactionViewModel>>.Success(transactionsViewModel);
     }
 }

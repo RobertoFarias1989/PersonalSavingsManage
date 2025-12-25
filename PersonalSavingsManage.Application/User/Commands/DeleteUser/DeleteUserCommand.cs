@@ -1,8 +1,9 @@
 ﻿using MediatR;
+using PersonalSavingsManage.Core.Models;
 
 namespace PersonalSavingsManage.Application.User.Commands.DeleteUser;
 
-public class DeleteUserCommand : IRequest<Unit>
+public class DeleteUserCommand : IRequest<ResultViewModel<Unit>>
 {
     public DeleteUserCommand(int id)
     {

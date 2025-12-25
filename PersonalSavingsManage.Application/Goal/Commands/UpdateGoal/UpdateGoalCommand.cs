@@ -1,8 +1,9 @@
 ﻿using MediatR;
+using PersonalSavingsManage.Core.Models;
 
 namespace PersonalSavingsManage.Application.FinancialGoal.Commands.UpdateFinancialGoal;
 
-public class UpdateGoalCommand : IRequest<Unit>
+public class UpdateGoalCommand : IRequest<ResultViewModel<Unit>>
 {
 
     public int Id { get;  set; }

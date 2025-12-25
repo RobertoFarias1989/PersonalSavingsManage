@@ -1,20 +1,21 @@
 ﻿using MediatR;
+using PersonalSavingsManage.Core.Models;
 using PersonalSavingsManage.Core.Repositories;
 
 namespace PersonalSavingsManage.Application.FinancialGoal.Commands.UpdateFinancialGoal;
 
-public class UpdateGoalCommandHandler : IRequestHandler<UpdateGoalCommand, Unit>
+public class UpdateGoalCommandHandler : IRequestHandler<UpdateGoalCommand, ResultViewModel<Unit>>
 {
-    private readonly IGoalRepository _repository;
+    private readonly IGoalRepository _goalRepository;
 
-    public UpdateGoalCommandHandler(IGoalRepository repository)
+    public UpdateGoalCommandHandler(IGoalRepository goalRepository)
     {
-        _repository = repository;
+        _goalRepository = goalRepository;
     }
 
-    public async Task<Unit> Handle(UpdateGoalCommand request, CancellationToken cancellationToken)
+    public async Task<ResultViewModel<Unit>> Handle(UpdateGoalCommand request, CancellationToken cancellationToken)
     {
-        var financialGoal = await _repository.GetByIdAsync(request.Id);
+        var financialGoal = await _goalRepository.GetByIdAsync(request.Id);
 
         if (financialGoal != null && financialGoal.IsDeleted != true)
         {
@@ -22,13 +23,13 @@ public class UpdateGoalCommandHandler : IRequestHandler<UpdateGoalCommand, Unit>
 
             financialGoal.CalculateIdealMonthlyContribution(request.Deadline, request.TargetAmount);
 
-            await _repository.UpdateAsync(financialGoal);
+            await _goalRepository.UpdateAsync(financialGoal);
         }
         else
         {
-            throw new Exception("The FinancialGoal was not found or already deleted.");
+            return ResultViewModel<Unit>.Error("The FinancialGoal was not found or already deleted.");
         }
 
-        return Unit.Value;
+        return ResultViewModel<Unit>.Success(Unit.Value);
     }
 }

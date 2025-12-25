@@ -1,9 +1,10 @@
 ﻿using MediatR;
+using PersonalSavingsManage.Core.Models;
 using PersonalSavingsManage.Core.Repositories;
 
 namespace PersonalSavingsManage.Application.User.Commands.DeleteUser;
 
-public class DeleteUserCommandHandler : IRequestHandler<DeleteUserCommand, Unit>
+public class DeleteUserCommandHandler : IRequestHandler<DeleteUserCommand, ResultViewModel<Unit>>
 {
     private readonly IUserRepository _repository;
 
@@ -12,7 +13,7 @@ public class DeleteUserCommandHandler : IRequestHandler<DeleteUserCommand, Unit>
         _repository = repository;
     }
 
-    public async Task<Unit> Handle(DeleteUserCommand request, CancellationToken cancellationToken)
+    public async Task<ResultViewModel<Unit>> Handle(DeleteUserCommand request, CancellationToken cancellationToken)
     {
         var user = await _repository.GetByIdAsync(request.Id);
 
@@ -24,9 +25,9 @@ public class DeleteUserCommandHandler : IRequestHandler<DeleteUserCommand, Unit>
         }
         else
         {
-            throw new Exception("The User was not found or already deleted.");
+            return ResultViewModel<Unit>.Error("The User was not found or already deleted.");
         }
 
-        return Unit.Value;
+        return ResultViewModel<Unit>.Success(Unit.Value);
     }
 }

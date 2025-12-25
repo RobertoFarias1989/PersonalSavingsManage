@@ -1,19 +1,20 @@
 ﻿using MediatR;
 using PersonalSavingsManage.Core.Enums;
+using PersonalSavingsManage.Core.Models;
 using PersonalSavingsManage.Core.Repositories;
 
 namespace PersonalSavingsManage.Application.Transaction.Commands.CreateTransaction;
 
-public class CreateTransactionCommandHandler : IRequestHandler<CreateTransactionCommand, int>
+public class CreateTransactionCommandHandler : IRequestHandler<CreateTransactionCommand, ResultViewModel<int>>
 {
-    private readonly ITransactionRepository _repository;
+    private readonly ITransactionRepository _transactionRepository;
 
-    public CreateTransactionCommandHandler(ITransactionRepository repository)
+    public CreateTransactionCommandHandler(ITransactionRepository transactionRepository)
     {
-        _repository = repository;
+        _transactionRepository = transactionRepository;
     }
 
-    public async Task<int> Handle(CreateTransactionCommand request, CancellationToken cancellationToken)
+    public async Task<ResultViewModel<int>> Handle(CreateTransactionCommand request, CancellationToken cancellationToken)
     {
         var transaction = new Core.Entities.Transaction(
             request.Amount,
@@ -21,8 +22,8 @@ public class CreateTransactionCommandHandler : IRequestHandler<CreateTransaction
             request.IdUser,
             request.IdGoal);
 
-        await _repository.AddAsync(transaction);
+        await _transactionRepository.AddAsync(transaction);
 
-        return transaction.Id;
+        return ResultViewModel<int>.Success(transaction.Id);
     }
 }

@@ -1,8 +1,9 @@
 ﻿using MediatR;
+using PersonalSavingsManage.Core.Models;
 
 namespace PersonalSavingsManage.Application.Transaction.Commands.UpdateTransaction;
 
-public class UpdateTransactionCommand : IRequest<Unit>
+public class UpdateTransactionCommand : IRequest<ResultViewModel<Unit>>
 {
     public int Id { get; private set; }
     public decimal Amount { get; set; }

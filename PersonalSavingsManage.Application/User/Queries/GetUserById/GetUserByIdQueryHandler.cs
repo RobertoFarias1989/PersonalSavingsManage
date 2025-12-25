@@ -1,25 +1,26 @@
 ﻿using MediatR;
 using PersonalSavingsManage.Application.User.ViewModels;
+using PersonalSavingsManage.Core.Models;
 using PersonalSavingsManage.Core.Repositories;
 
 namespace PersonalSavingsManage.Application.User.Queries.GetUserById;
 
-public class GetUserByIdQueryHandler : IRequestHandler<GetUserByIdQuery, UserDetailsViewModel>
+public class GetUserByIdQueryHandler : IRequestHandler<GetUserByIdQuery, ResultViewModel<UserDetailsViewModel>>
 {
-    private readonly IUserRepository _repository;
+    private readonly IUserRepository _userRepository;
 
-    public GetUserByIdQueryHandler(IUserRepository repository)
+    public GetUserByIdQueryHandler(IUserRepository userRepository)
     {
-        _repository = repository;
+        _userRepository = userRepository;
     }
 
-    public async Task<UserDetailsViewModel> Handle(GetUserByIdQuery request, CancellationToken cancellationToken)
+    public async Task<ResultViewModel<UserDetailsViewModel>> Handle(GetUserByIdQuery request, CancellationToken cancellationToken)
     {
-        var user = await _repository.GetByIdAsync(request.Id);
+        var user = await _userRepository.GetByIdAsync(request.Id);
 
         var userDetailsViewModel = UserDetailsViewModel.FromEntity(user);
 
-        return userDetailsViewModel;
+        return ResultViewModel<UserDetailsViewModel>.Success(userDetailsViewModel);
 
     }
 }

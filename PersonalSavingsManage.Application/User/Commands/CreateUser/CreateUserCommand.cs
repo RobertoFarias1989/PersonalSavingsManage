@@ -1,8 +1,9 @@
 ﻿using MediatR;
+using PersonalSavingsManage.Core.Models;
 
 namespace PersonalSavingsManage.Application.User.Commands.CreateUser;
 
-public class CreateUserCommand : IRequest<int>
+public class CreateUserCommand : IRequest<ResultViewModel<int>>
 {
     public string? Street { get; set; }
     public string? City { get; set; }

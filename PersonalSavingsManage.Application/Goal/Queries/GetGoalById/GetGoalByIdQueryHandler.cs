@@ -1,25 +1,25 @@
 ﻿using MediatR;
 using PersonalSavingsManage.Application.FinancialGoal.ViewModels;
-using PersonalSavingsManage.Application.Transaction.ViewModel;
+using PersonalSavingsManage.Core.Models;
 using PersonalSavingsManage.Core.Repositories;
 
 namespace PersonalSavingsManage.Application.FinancialGoal.Queries.GetFinacialGoalById;
 
-public class GetGoalByIdQueryHandler : IRequestHandler<GetGoalByIdQuery, GoalDetailsViewModel>
+public class GetGoalByIdQueryHandler : IRequestHandler<GetGoalByIdQuery, ResultViewModel<GoalDetailsViewModel>>
 {
-    private readonly IGoalRepository _repository;
+    private readonly IGoalRepository _goalRepository;
 
-    public GetGoalByIdQueryHandler(IGoalRepository repository)
+    public GetGoalByIdQueryHandler(IGoalRepository goalRepository)
     {
-        _repository = repository;
+        _goalRepository = goalRepository;
     }
 
-    public async Task<GoalDetailsViewModel> Handle(GetGoalByIdQuery request, CancellationToken cancellationToken)
+    public async Task<ResultViewModel<GoalDetailsViewModel>> Handle(GetGoalByIdQuery request, CancellationToken cancellationToken)
     {
-        var goal = await _repository.GetByIdAsync(request.Id);
+        var goal = await _goalRepository.GetByIdAsync(request.Id);
 
         var goalDetailsViewModel = GoalDetailsViewModel.FromEntity(goal);
 
-        return goalDetailsViewModel;
+        return ResultViewModel<GoalDetailsViewModel>.Success(goalDetailsViewModel);
     }
 }

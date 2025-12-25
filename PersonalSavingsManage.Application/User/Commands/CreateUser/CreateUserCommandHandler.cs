@@ -1,10 +1,11 @@
 ﻿using MediatR;
+using PersonalSavingsManage.Core.Models;
 using PersonalSavingsManage.Core.Repositories;
 using PersonalSavingsManage.Core.ValueObjects;
 
 namespace PersonalSavingsManage.Application.User.Commands.CreateUser;
 
-public class CreateUserCommandHandler : IRequestHandler<CreateUserCommand, int>
+public class CreateUserCommandHandler : IRequestHandler<CreateUserCommand, ResultViewModel<int>>
 {
     private readonly IUserRepository _repository;
 
@@ -13,7 +14,7 @@ public class CreateUserCommandHandler : IRequestHandler<CreateUserCommand, int>
         _repository = repository;
     }
 
-    public async Task<int> Handle(CreateUserCommand request, CancellationToken cancellationToken)
+    public async Task<ResultViewModel<int>> Handle(CreateUserCommand request, CancellationToken cancellationToken)
     {
         var user = new Core.Entities.User(
             new Address(request.Street!, request.City!, request.State!, request.PostalCode!, request.Country!),
@@ -24,6 +25,6 @@ public class CreateUserCommandHandler : IRequestHandler<CreateUserCommand, int>
 
         await _repository.Addasync(user);
 
-        return user.Id;
+        return ResultViewModel<int>.Success(user.Id);
     }
 }
