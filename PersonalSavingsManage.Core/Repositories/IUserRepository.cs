@@ -5,7 +5,7 @@ namespace PersonalSavingsManage.Core.Repositories;
 public interface IUserRepository
 {
     Task<List<User>> GetAllAsync();
-    Task<User> GetByIdAsync(int id);
+    Task<User?> GetByIdAsync(int id);
     Task<User> GetUserByEmailAndPasswordAsync(string email, string passwordHash);
     Task Addasync(User user);
     Task UpdateAsync(User user);

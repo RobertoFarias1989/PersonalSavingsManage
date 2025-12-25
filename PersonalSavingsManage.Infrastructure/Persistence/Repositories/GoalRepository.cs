@@ -1,27 +1,44 @@
-﻿using PersonalSavingsManage.Core.Entities;
+﻿using Microsoft.EntityFrameworkCore;
+using PersonalSavingsManage.Core.Entities;
 using PersonalSavingsManage.Core.Repositories;
 
 namespace PersonalSavingsManage.Infrastructure.Persistence.Repositories;
 
 public class GoalRepository : IGoalRepository
 {
-    public Task AddAsync(Goal goal)
+    private readonly PersonalSavingsDbContext _context;
+
+    public GoalRepository(PersonalSavingsDbContext context)
     {
-        throw new NotImplementedException();
+        _context = context;
     }
 
-    public Task<List<Goal>> GetAllAsync()
+    public async Task<List<Goal>> GetAllAsync()
     {
-        throw new NotImplementedException();
+        return await _context.Goals
+            .AsNoTracking()
+            .ToListAsync();
     }
 
-    public Task<Goal> GetByIdAsync(int id)
+    public async Task<Goal?> GetByIdAsync(int id)
     {
-        throw new NotImplementedException();
+        return await _context.Goals
+            .Include(g => g.Transactions)            
+            .SingleOrDefaultAsync(g => g.Id == id);
     }
 
-    public Task UpdateAsync(Goal goal)
+    public async Task AddAsync(Goal goal)
     {
-        throw new NotImplementedException();
+        await _context.Goals.AddAsync(goal);
+
+        await _context.SaveChangesAsync();
     }
+
+    public async Task UpdateAsync(Goal goal)
+    {
+        _context.Goals.Update(goal);
+
+        await _context.SaveChangesAsync();
+    }
+    
 }

@@ -1,23 +1,31 @@
-﻿using PersonalSavingsManage.Core.Entities;
+﻿using Microsoft.EntityFrameworkCore;
+using PersonalSavingsManage.Core.Entities;
 using PersonalSavingsManage.Core.Repositories;
 
 namespace PersonalSavingsManage.Infrastructure.Persistence.Repositories;
 
 public class UserRepository : IUserRepository
-{
-    public Task Addasync(User user)
+{    
+    private readonly PersonalSavingsDbContext _context;
+
+    public UserRepository(PersonalSavingsDbContext context)
     {
-        throw new NotImplementedException();
+        _context = context;
     }
 
-    public Task<List<User>> GetAllAsync()
+    public async Task<List<User>> GetAllAsync()
     {
-        throw new NotImplementedException();
+        return await _context.Users
+            .AsNoTracking()
+            .ToListAsync();
     }
 
-    public Task<User> GetByIdAsync(int id)
+    public async Task<User?> GetByIdAsync(int id)
     {
-        throw new NotImplementedException();
+        return await _context.Users
+            .Include(u => u.Goals)
+            .Include(u => u.Transactions)
+            .SingleOrDefaultAsync(u => u.Id == id);
     }
 
     public Task<User> GetUserByEmailAndPasswordAsync(string email, string passwordHash)
@@ -25,8 +33,17 @@ public class UserRepository : IUserRepository
         throw new NotImplementedException();
     }
 
-    public Task UpdateAsync(User user)
+    public async Task Addasync(User user)
     {
-        throw new NotImplementedException();
+       await _context.Users.AddAsync(user);
+
+       await _context.SaveChangesAsync();
+    }
+
+    public async Task UpdateAsync(User user)
+    {
+        _context.Users.Update(user);
+
+        await _context.SaveChangesAsync();
     }
 }
