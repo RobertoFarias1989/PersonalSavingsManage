@@ -7,7 +7,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PersonalSavingsManage.Core"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PersonalSavingsManage.Infrastructure", "PersonalSavingsManage.Infrastructure\PersonalSavingsManage.Infrastructure.csproj", "{D7E7BAE2-7E8F-40B9-9322-9C8950BD8C9E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PersonalSavingsManage.Application", "PersonalSavingsManage.Application\PersonalSavingsManage.Application.csproj", "{F2A56013-D93A-4563-AD2A-F53271CE3556}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PersonalSavingsManage.Application", "PersonalSavingsManage.Application\PersonalSavingsManage.Application.csproj", "{F2A56013-D93A-4563-AD2A-F53271CE3556}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PersonalSavingsManage.Api", "PersonalSavingsManage.Api\PersonalSavingsManage.Api.csproj", "{8BF763B8-2CE2-42CB-97F0-A7FF4B5995B2}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -27,6 +29,10 @@ Global
 		{F2A56013-D93A-4563-AD2A-F53271CE3556}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F2A56013-D93A-4563-AD2A-F53271CE3556}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F2A56013-D93A-4563-AD2A-F53271CE3556}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8BF763B8-2CE2-42CB-97F0-A7FF4B5995B2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8BF763B8-2CE2-42CB-97F0-A7FF4B5995B2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8BF763B8-2CE2-42CB-97F0-A7FF4B5995B2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8BF763B8-2CE2-42CB-97F0-A7FF4B5995B2}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
