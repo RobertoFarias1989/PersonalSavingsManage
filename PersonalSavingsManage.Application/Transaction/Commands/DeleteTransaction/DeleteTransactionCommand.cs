@@ -10,5 +10,5 @@ public class DeleteTransactionCommand : IRequest<ResultViewModel<Unit>>
         Id = id;
     }
 
-    public int Id { get; private set; }
+    public int Id { get;  private set; }
 }
