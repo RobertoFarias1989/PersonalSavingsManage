@@ -6,7 +6,7 @@ using System.Security.Claims;
 using System.Security.Cryptography;
 using System.Text;
 
-namespace PersonalSavingsManage.Infrastructure.AuthService;
+namespace PersonalSavingsManage.Infrastructure.Auth;
 
 public class AuthService : IAuthService
 {

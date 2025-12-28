@@ -1,5 +1,7 @@
+using Microsoft.Extensions.Configuration;
 using PersonalSavingsManage.Application;
 using PersonalSavingsManage.Infrastructure;
+using PersonalSavingsManage.Infrastructure.Settings;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -7,8 +9,12 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllers();
 
+var jwtOptions = builder.Services.AddOptions<JwtOptions>()
+       .Bind(builder.Configuration.GetSection("Jwt"))
+       .ValidateOnStart();
+
 builder.Services.AddAplication();
-builder.Services.AddInfrastructure(builder.Configuration);
+builder.Services.AddInfrastructure(builder.Configuration, (Microsoft.Extensions.Options.IOptions<JwtOptions>)jwtOptions);
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
