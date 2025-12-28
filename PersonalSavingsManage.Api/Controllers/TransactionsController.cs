@@ -10,6 +10,7 @@ namespace PersonalSavingsManage.Api.Controllers;
 
 [Route("api/transactions")]
 [ApiController]
+[Produces("application/json")]
 public class TransactionsController : ControllerBase
 {
     private readonly IMediator _mediator;
