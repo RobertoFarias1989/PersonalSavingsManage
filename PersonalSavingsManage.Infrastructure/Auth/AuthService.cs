@@ -1,6 +1,8 @@
 ﻿using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using PersonalSavingsManage.Core.Services;
+using PersonalSavingsManage.Infrastructure.Settings;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Security.Cryptography;
@@ -10,11 +12,11 @@ namespace PersonalSavingsManage.Infrastructure.Auth;
 
 public class AuthService : IAuthService
 {
-    private readonly IConfiguration _configuration;
+    private readonly IOptions<JwtOptions> _options;
 
-    public AuthService(IConfiguration configuration)
+    public AuthService(IOptions<JwtOptions> options)
     {
-        _configuration = configuration;
+        _options = options;
     }
 
     public string ComputeSha256Hash(string password)
@@ -38,9 +40,9 @@ public class AuthService : IAuthService
 
     public string GenerateJwtToken(string email, string role)
     {
-        var issuer = _configuration["Jwt:Issuer"];
-        var audience = _configuration["Jwt:Audience"];
-        var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["Jwt:key"]!));
+        var issuer = _options.Value.Issuer;
+        var audience = _options.Value.Audience;
+        var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_options.Value.Key));
 
         var credentials = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
 
