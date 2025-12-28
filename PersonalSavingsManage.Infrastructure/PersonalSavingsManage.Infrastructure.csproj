@@ -23,8 +23,4 @@
     <ProjectReference Include="..\PersonalSavingsManage.Core\PersonalSavingsManage.Core.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="AuthService\" />
-  </ItemGroup>
-
 </Project>
