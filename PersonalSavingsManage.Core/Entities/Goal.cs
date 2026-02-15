@@ -5,6 +5,10 @@ namespace PersonalSavingsManage.Core.Entities;
 
 public class Goal : BaseEntity
 {
+    public Goal()
+    {
+        ///ef core
+    }
     public Goal(string title,
         decimal targetAmount,
         string imageGoal,

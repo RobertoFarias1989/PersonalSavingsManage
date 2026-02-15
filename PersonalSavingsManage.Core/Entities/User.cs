@@ -4,6 +4,10 @@ namespace PersonalSavingsManage.Core.Entities;
 
 public class User : BaseEntity
 {
+    public User()
+    {
+        ///ef core
+    }
     public User(Address address, Email email, Name name, Password password, string role) : base()
     {
         Address = address;

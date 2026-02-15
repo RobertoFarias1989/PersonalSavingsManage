@@ -11,12 +11,12 @@ public class BaseEntityConfiguration<TEntity> : IEntityTypeConfiguration<TEntity
         builder
             .HasKey(b => b.Id);
 
-        builder
-            .Property(b => b.CreatedAt)
-            .HasColumnName("datetime");
+        //builder
+        //    .Property(b => b.CreatedAt)
+        //    .HasColumnName("datetime");
 
-        builder
-            .Property(b => b.UpdatedAt)
-            .HasColumnName("datetime");
+        //builder
+        //    .Property(b => b.UpdatedAt)
+        //    .HasColumnName("datetime");
     }
 }

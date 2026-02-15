@@ -16,11 +16,11 @@ namespace PersonalSavingsManage.Infrastructure;
 
 public static class InfraDependencyInjection
 {
-    public static IServiceCollection AddInfrastructure( this IServiceCollection services, IConfiguration configuration, IOptions<JwtOptions> options)
+    public static IServiceCollection AddInfrastructure( this IServiceCollection services, IConfiguration configuration)
     {
         services.AddRepositories()
             .AddDatabase(configuration)
-            .AddAuthService(configuration, options);
+            .AddAuthService(configuration);
         return services;
     }
 
@@ -42,13 +42,17 @@ public static class InfraDependencyInjection
         return services;
     }
 
-    public static IServiceCollection AddAuthService(this IServiceCollection services, IConfiguration configuration, IOptions<JwtOptions> options )
+    public static IServiceCollection AddAuthService(this IServiceCollection services, IConfiguration configuration)
     {
         services.AddScoped<IAuthService, AuthService>();
 
-        //services.AddOptions<JwtOptions>()
-        //    .Bind(configuration.GetSection("Jwt"))
-        //    .ValidateOnStart();
+        services.AddOptions<JwtOptions>()
+            .Bind(configuration.GetSection("Jwt"))
+            .ValidateDataAnnotations()
+            .ValidateOnStart();
+
+        var jwt = configuration.GetSection("Jwt").Get<JwtOptions>() 
+            ?? throw new InvalidOperationException("Falta a configuração do Jwt.");
 
         services
             .AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
@@ -60,9 +64,9 @@ public static class InfraDependencyInjection
                     ValidateAudience = true,
                     ValidateLifetime = true,
                     ValidateIssuerSigningKey = true,
-                    ValidIssuer = options.Value.Issuer,
-                    ValidAudience = options.Value.Audience,
-                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(options.Value.Key))
+                    ValidIssuer = jwt.Issuer,
+                    ValidAudience = jwt.Audience,
+                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwt.Key))
                 };
             });
 

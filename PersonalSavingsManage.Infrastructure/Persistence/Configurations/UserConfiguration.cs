@@ -44,6 +44,10 @@ public class UserConfiguration : BaseEntityConfiguration<User>
             .OwnsOne(u => u.Email,
             email =>
             {
+                email.Property(e => e.EmailAddress)
+                .HasColumnName("EmailAddress")
+                .HasMaxLength(100);
+
                 email.HasIndex(e => e.EmailAddress)
                 .IsUnique();
             });

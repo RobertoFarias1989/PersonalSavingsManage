@@ -9,12 +9,8 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllers();
 
-var jwtOptions = builder.Services.AddOptions<JwtOptions>()
-       .Bind(builder.Configuration.GetSection("Jwt"))
-       .ValidateOnStart();
-
 builder.Services.AddAplication();
-builder.Services.AddInfrastructure(builder.Configuration, (Microsoft.Extensions.Options.IOptions<JwtOptions>)jwtOptions);
+builder.Services.AddInfrastructure(builder.Configuration);
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();

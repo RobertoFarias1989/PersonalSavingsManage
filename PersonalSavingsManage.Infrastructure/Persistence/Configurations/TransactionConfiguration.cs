@@ -18,5 +18,9 @@ public class TransactionConfiguration : BaseEntityConfiguration<Transaction>
         builder
             .Property(t => t.TransactionDate)
             .HasColumnName("TransactionDate");
+
+        builder
+            .Property(t => t.Amount)
+            .HasPrecision(18,2);
     }
 }

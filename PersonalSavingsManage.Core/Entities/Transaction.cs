@@ -4,6 +4,10 @@ namespace PersonalSavingsManage.Core.Entities;
 
 public class Transaction : BaseEntity
 {
+    public Transaction()
+    {
+        ///ef core
+    }
     public Transaction(decimal amount, TransactionTypeEnum type, int idUser, int idGoal) : base()
     {
         Amount = amount;
